@@ -1,34 +1,34 @@
 <ion-header>
-  <ion-toolbar class="transparent-toolbar" color="dark">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar>    
 </ion-header>
 
-<ion-content [forceOverscroll]="false" color="dark" fullscreen="true">
-    <ion-slides [options]="slideOpts">
-      <ion-slide>
-        <div ><img src="https://picsum.photos/355/510?random=1"/></div>
-      </ion-slide>
-    </ion-slides>
-  </ion-content>
-
-<ion-content fullscreen class="with-background-image">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+<ion-content fullscreen class="with-background-image" scrollX=false scrollY=false>
+  <ion-slides class="image" [options]="sliderImageOptions">
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <img src="https://picsum.photos/414/736">
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="dark">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-      <ion-fab-button color="dark">
-        <ion-icon name="checkmark-circle"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
+    <ion-fab-button color="dark">
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+</ion-content>
 
 <ion-footer>
-  <ion-slides class="ion-padding" pager="false" [options]="slidesOptions">
+  <ion-slides class="ion-padding" pager="false" [options]="slidesStylesOptions">
     <ion-slide *ngFor="let style of styles">
       <ion-button style="min-height : 100px; min-width : 120px" expand="block" fill="clear">
         <img style="min-height: 80px;" [src]="style.imgUrl">
