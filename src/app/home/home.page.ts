@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  slidesOptions = {
+  sliderImageOptions = {
+    zoom: {
+      maxRatio: 3
+    }
+  }
+
+  slidesStylesOptions = {
     spaceBetween: 10,
     slidesPerView: 4,
 //    loop: true,np
