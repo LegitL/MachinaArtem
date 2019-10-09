@@ -10,20 +10,20 @@
   <ion-slides class="image" [options]="sliderImageOptions">
     <ion-slide>
       <div class="swiper-zoom-container">
-        <img src="https://picsum.photos/414/736">
+        <img [src]="photo">
       </div>
     </ion-slide>
   </ion-slides>
   <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="dark">
-      <ion-icon name="camera"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="dark">
       <ion-icon name="checkmark-circle"></ion-icon>
     </ion-fab-button>
   </ion-fab> -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="takePicture()" color="dark">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>
 

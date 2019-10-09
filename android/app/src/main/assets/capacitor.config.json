@@ -1,0 +1,7 @@
+{
+  "appId": "com.legitl.ma",
+  "appName": "MachinaArtem",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
