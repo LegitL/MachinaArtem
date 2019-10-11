@@ -1,25 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import * as mi from '@magenta/image';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  photo: SafeResourceUrl = 'https://picsum.photos/414/736ionic cap ';
-  
-  constructor(private sanitizer: DomSanitizer) {  }
-  
-  public async takePicture(): Promise<void> {
-    const image = await Plugins.Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Prompt
-    });
+export class HomePage implements OnInit {
 
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
-  }
+  model: any;
+  selectedStyleIndex: number;
+  resultHeight = 0;
+  resultWidth = 0;
+  photo: SafeResourceUrl = 'https://cdn.glitch.com/93893683-46da-4058-829c-a05792722f2b%2Fcontent.jpg?1545163443723'; //'https://picsum.photos/414/736';
 
   sliderImageOptions = {
     zoom: {
@@ -30,13 +25,53 @@ export class HomePage {
   slidesStylesOptions = {
     spaceBetween: 10,
     slidesPerView: 3.4,
-//    loop: true,np
-//    freeMode: true,
-    loopedSlides: 5, //looped slides should be the same
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true,
   };
  
+  
+  constructor(private sanitizer: DomSanitizer) {  }
+
+  public ngOnInit(): void {
+    this.model = new mi.ArbitraryStyleTransferNetwork();
+    console.log(this.model);
+    this.model.initialize();
+  }
+  
+  public async takePicture(): Promise<void> {
+    const image = await Plugins.Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Prompt
+    });
+
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
+  }
+
+  public slideStyleTap(styleIndex: number): void {
+    console.log(styleIndex);
+    this.selectedStyleIndex = styleIndex;
+
+    const originalImg = document.getElementById('original') as HTMLImageElement;
+    const styleImg = document.getElementById('style') as HTMLImageElement;
+
+    styleImg.style.setProperty('height',  (originalImg.height * 1.0) + 'px');
+  }
+
+  public stylize() {
+    const originalImg = document.getElementById('original') as HTMLImageElement;
+    const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
+    const styleImg = document.getElementById('style') as HTMLImageElement;
+    const strength = 0.5;
+
+    this.resultHeight = originalImg.height;
+    this.resultWidth = originalImg.width;
+
+    // Use timout:0 to give a chance for canvas size to be set by javascript event queue.
+    setTimeout(() => {
+      this.model.stylize(originalImg, styleImg, strength).then((imageData: ImageData) => {
+        resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
+      })
+    }, 0)
+  }
+
   styles = [
     {
       title: 'Style One',

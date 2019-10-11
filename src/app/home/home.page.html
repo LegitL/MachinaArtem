@@ -6,19 +6,21 @@
   </ion-toolbar>    
 </ion-header>
 
-<ion-content fullscreen class="with-background-image" scrollX=false scrollY=false>
-  <ion-slides class="image" [options]="sliderImageOptions">
-    <ion-slide>
-      <div class="swiper-zoom-container">
-        <img [src]="photo">
+<ion-content fullscreen class="with-background-image">
+  <!-- <ion-slides class="image" [options]="sliderImageOptions">
+    <ion-slide> -->
+      <div class="_swiper-zoom-container">
+        <div class="_where-magic-happens">
+          <img id="style"
+              (load)="stylize()"
+              [src]="selectedStyleIndex ? styles[selectedStyleIndex].imgUrl : ''"
+              crossorigin="anonymous">
+          <img id="original" [src]="photo" crossorigin="anonymous" style="max-width: 320px">
+          <canvas id="result" [height]="resultHeight" [width]="resultWidth"></canvas> 
+        </div>
       </div>
-    </ion-slide>
-  </ion-slides>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark">
-      <ion-icon name="checkmark-circle"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+    <!-- </ion-slide>
+  </ion-slides> -->
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button (click)="takePicture()" color="dark">
       <ion-icon name="camera"></ion-icon>
@@ -29,9 +31,9 @@
 
 <ion-footer>
   <ion-slides class="ion-padding" pager="false" [options]="slidesStylesOptions">
-    <ion-slide *ngFor="let style of styles">
-      <ion-button style="min-height : 100px; min-width : 120px" expand="block" fill="clear">
-        <img style="min-height: 80px;" [src]="style.imgUrl">
+    <ion-slide *ngFor="let style of styles; index as styleIndex">
+      <ion-button class="style" expand="block" fill="clear" (click)="slideStyleTap(styleIndex)">
+        <img [src]="style.imgUrl" crossorigin="anonymous">
       </ion-button>
     </ion-slide>
   </ion-slides>
