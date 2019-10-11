@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, PopoverController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
+import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomePage implements OnInit {
   selectedStyleIndex: number;
   resultHeight = 0;
   resultWidth = 0;
-  styleRatio = 1.0;
+  styleAmount = 100;
+  styleSize = 50;
   photo: SafeResourceUrl = 'https://picsum.photos/414/736';
 
   sliderImageOptions = {
@@ -30,10 +32,11 @@ export class HomePage implements OnInit {
     slidesPerView: 3.4,
   };
  
-  
+
   constructor(
     private sanitizer: DomSanitizer,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private popoverController: PopoverController
   ) {  }
 
   public ngOnInit(): void {
@@ -57,8 +60,8 @@ export class HomePage implements OnInit {
 
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
-
-    styleImg.style.setProperty('height',  (originalImg.height * this.styleRatio) + 'px');
+    const styleRatio = this.styleSize / 100;
+    styleImg.style.setProperty('height',  (originalImg.height * styleRatio) + 'px');
   }
 
   public async stylize(): Promise<void >{
@@ -67,7 +70,7 @@ export class HomePage implements OnInit {
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
-    const strength = 0.5;
+    const strength = this.styleAmount / 100;
 
     this.resultHeight = originalImg.height;
     this.resultWidth = originalImg.width;
@@ -93,6 +96,26 @@ export class HomePage implements OnInit {
 
   public shuffleImage(): void {
     this.photo = `https://picsum.photos/414/736?${Math.random()}`;
+  }
+
+  public async showStyleSettingsPopover(ev: any): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: StyleSettingsPopoverComponent,
+      componentProps: {
+        styleAmount: this.styleAmount,
+        styleSize: this.styleSize
+      },
+      event: ev
+    });
+    popover.onDidDismiss().then(detail => {
+      if (detail.data) {
+        this.styleAmount = detail.data.styleAmount;
+        this.styleSize = detail.data.styleSize;
+        this.prepareCanvas();
+      }
+    });
+
+    return await popover.present();
   }
 
   private async showLoader() {
