@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { LoadingController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
 
 @Component({
@@ -10,15 +11,17 @@ import * as mi from '@magenta/image';
 })
 export class HomePage implements OnInit {
 
+  loader: HTMLIonLoadingElement;
   model: any;
   selectedStyleIndex: number;
   resultHeight = 0;
   resultWidth = 0;
-  photo: SafeResourceUrl = 'https://cdn.glitch.com/93893683-46da-4058-829c-a05792722f2b%2Fcontent.jpg?1545163443723'; //'https://picsum.photos/414/736';
+  styleRatio = 1.0;
+  photo: SafeResourceUrl = 'https://picsum.photos/414/736';
 
   sliderImageOptions = {
     zoom: {
-      maxRatio: 2
+      maxRatio: 3
     }
   }
 
@@ -28,7 +31,10 @@ export class HomePage implements OnInit {
   };
  
   
-  constructor(private sanitizer: DomSanitizer) {  }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private loadingController: LoadingController
+  ) {  }
 
   public ngOnInit(): void {
     this.model = new mi.ArbitraryStyleTransferNetwork();
@@ -52,10 +58,12 @@ export class HomePage implements OnInit {
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
 
-    styleImg.style.setProperty('height',  (originalImg.height * 1.0) + 'px');
+    styleImg.style.setProperty('height',  (originalImg.height * this.styleRatio) + 'px');
   }
 
-  public stylize() {
+  public async stylize(): Promise<void >{
+    await this.showLoader();
+
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
@@ -64,13 +72,41 @@ export class HomePage implements OnInit {
     this.resultHeight = originalImg.height;
     this.resultWidth = originalImg.width;
 
+    resultCanvas.style.setProperty('top', originalImg.offsetTop + 'px');
+    resultCanvas.style.setProperty('left', originalImg.offsetLeft + 'px');
+
     // Use timout:0 to give a chance for canvas size to be set by javascript event queue.
     setTimeout(() => {
       this.model.stylize(originalImg, styleImg, strength).then((imageData: ImageData) => {
         resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
+        this.hideLoader();
       })
     }, 0)
   }
+
+  public prepareCanvas(): void {
+    const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
+    const context = resultCanvas.getContext('2d');
+    context.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+    delete this.selectedStyleIndex;
+  }
+
+  public shuffleImage(): void {
+    this.photo = `https://picsum.photos/414/736?${Math.random()}`;
+  }
+
+  private async showLoader() {
+    this.loader = await this.loadingController.create({
+      message: 'Stylizing...',
+      translucent: true,
+    });
+    return await this.loader.present();
+  }
+
+  private hideLoader() {
+    this.loader.dismiss();
+  }
+
 
   styles = [
     {

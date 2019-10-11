@@ -23,9 +23,15 @@ ion-button {
   position: relative;
 
   canvas {
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    height: 250px;
+    position: absolute;
   }
 }
+
+#style {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.0;
+  z-index: -1000;
+}
+
