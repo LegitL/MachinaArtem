@@ -12,7 +12,20 @@ ion-slides {
   }
 }
 
-// ion-content {
-//   --offset-top: 0 !important;
-//   --offset-bottom: 0 !important;
-// }
+ion-button {
+  &.style {
+    min-height: 100px;
+    min-width: 120px
+  }
+}
+
+.where-magic-happens {
+  position: relative;
+
+  canvas {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    height: 250px;
+  }
+}
