@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  entryComponents: [StyleSettingsPopoverComponent],
+  declarations: [HomePage, StyleSettingsPopoverComponent]
 })
 export class HomePageModule {}

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { LoadingController, PopoverController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
+import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +12,18 @@ import * as mi from '@magenta/image';
 })
 export class HomePage implements OnInit {
 
+  loader: HTMLIonLoadingElement;
   model: any;
   selectedStyleIndex: number;
   resultHeight = 0;
   resultWidth = 0;
-  photo: SafeResourceUrl = 'https://cdn.glitch.com/93893683-46da-4058-829c-a05792722f2b%2Fcontent.jpg?1545163443723'; //'https://picsum.photos/414/736';
+  styleAmount = 100;
+  styleSize = 50;
+  photo: SafeResourceUrl = 'https://picsum.photos/414/736';
 
   sliderImageOptions = {
     zoom: {
-      maxRatio: 2
+      maxRatio: 3
     }
   }
 
@@ -27,8 +32,12 @@ export class HomePage implements OnInit {
     slidesPerView: 3.4,
   };
  
-  
-  constructor(private sanitizer: DomSanitizer) {  }
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private loadingController: LoadingController,
+    private popoverController: PopoverController
+  ) {  }
 
   public ngOnInit(): void {
     this.model = new mi.ArbitraryStyleTransferNetwork();
@@ -51,26 +60,76 @@ export class HomePage implements OnInit {
 
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
-
-    styleImg.style.setProperty('height',  (originalImg.height * 1.0) + 'px');
+    const styleRatio = this.styleSize / 100;
+    styleImg.style.setProperty('height',  (originalImg.height * styleRatio) + 'px');
   }
 
-  public stylize() {
+  public async stylize(): Promise<void >{
+    await this.showLoader();
+
     const originalImg = document.getElementById('original') as HTMLImageElement;
     const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
     const styleImg = document.getElementById('style') as HTMLImageElement;
-    const strength = 0.5;
+    const strength = this.styleAmount / 100;
 
     this.resultHeight = originalImg.height;
     this.resultWidth = originalImg.width;
+
+    resultCanvas.style.setProperty('top', originalImg.offsetTop + 'px');
+    resultCanvas.style.setProperty('left', originalImg.offsetLeft + 'px');
 
     // Use timout:0 to give a chance for canvas size to be set by javascript event queue.
     setTimeout(() => {
       this.model.stylize(originalImg, styleImg, strength).then((imageData: ImageData) => {
         resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
+        this.hideLoader();
       })
     }, 0)
   }
+
+  public prepareCanvas(): void {
+    const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
+    const context = resultCanvas.getContext('2d');
+    context.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+    delete this.selectedStyleIndex;
+  }
+
+  public shuffleImage(): void {
+    this.photo = `https://picsum.photos/414/736?${Math.random()}`;
+  }
+
+  public async showStyleSettingsPopover(ev: any): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: StyleSettingsPopoverComponent,
+      componentProps: {
+        styleAmount: this.styleAmount,
+        styleSize: this.styleSize
+      },
+      event: ev
+    });
+    popover.onDidDismiss().then(detail => {
+      if (detail.data) {
+        this.styleAmount = detail.data.styleAmount;
+        this.styleSize = detail.data.styleSize;
+        this.prepareCanvas();
+      }
+    });
+
+    return await popover.present();
+  }
+
+  private async showLoader() {
+    this.loader = await this.loadingController.create({
+      message: 'Stylizing...',
+      translucent: true,
+    });
+    return await this.loader.present();
+  }
+
+  private hideLoader() {
+    this.loader.dismiss();
+  }
+
 
   styles = [
     {

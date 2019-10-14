@@ -3,24 +3,34 @@
     <ion-buttons slot="start">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="shuffleImage()">
+        <ion-icon slot="icon-only" name="shuffle"></ion-icon>
+      </ion-button>
+      <ion-button color="light" (click)="showStyleSettingsPopover($event)">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>    
 </ion-header>
 
-<ion-content fullscreen class="with-background-image">
-  <!-- <ion-slides class="image" [options]="sliderImageOptions">
-    <ion-slide> -->
-      <div class="_swiper-zoom-container">
-        <div class="_where-magic-happens">
-          <img id="style"
-              (load)="stylize()"
-              [src]="selectedStyleIndex ? styles[selectedStyleIndex].imgUrl : ''"
-              crossorigin="anonymous">
-          <img id="original" [src]="photo" crossorigin="anonymous" style="max-width: 320px">
-          <canvas id="result" [height]="resultHeight" [width]="resultWidth"></canvas> 
-        </div>
+<ion-content fullscreen class="with-background-image" scrollX=false scrollY=false>
+  <ion-slides class="image" [options]="sliderImageOptions">
+    <ion-slide>
+      <div class="swiper-zoom-container where-magic-happens">
+        <img id="original" 
+            (load)="prepareCanvas()"
+            [src]="photo" crossorigin="anonymous" style="max-width: 320px; max-height: 390px;">
+        <canvas id="result" [height]="resultHeight" [width]="resultWidth"></canvas> 
       </div>
-    <!-- </ion-slide>
-  </ion-slides> -->
+    </ion-slide>
+  </ion-slides>
+  <img id="style"
+      (load)="stylize()"
+      [src]="selectedStyleIndex !== undefined ? styles[selectedStyleIndex].imgUrl : ''"
+      crossorigin="anonymous">
+
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button (click)="takePicture()" color="dark">
       <ion-icon name="camera"></ion-icon>
