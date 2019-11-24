@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, PopoverController } from '@ionic/angular';
+import { LoadingController, PopoverController, Platform, ToastController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 
 @Component({
@@ -34,9 +35,12 @@ export class HomePage implements OnInit {
  
 
   constructor(
+    private platform: Platform,
     private sanitizer: DomSanitizer,
     private loadingController: LoadingController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private toastController: ToastController,
+    private base64ToGallery: Base64ToGallery
   ) {  }
 
   public ngOnInit(): void {
@@ -52,6 +56,24 @@ export class HomePage implements OnInit {
     });
 
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
+  }
+
+  public async savePicture(): Promise<void> {
+    if (this.platform.is('cordova')) {
+      try {
+        const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
+        const res = await this.base64ToGallery.base64ToGallery(resultCanvas.toDataURL());
+        const toast = await this.toastController.create({
+          message: 'Your stylized image has been saved.',
+          duration: 2000
+        });
+        toast.present();
+      } catch (ex) {
+        console.log('Error', ex);
+      }
+    } else {
+      console.log('not running on mobile device');
+    }
   }
 
   public slideStyleTap(styleIndex: number): void {
