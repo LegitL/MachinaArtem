@@ -12,9 +12,33 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  }
+    path: 'discover',
+    loadChildren: () => import('./discover/discover.module').then(m => m.DiscoverPageModule)
+  },
+  {
+    path: 'discover/styles',
+    loadChildren: () => import('./styles/styles.module').then(m => m.StylesPageModule)
+  },
+  {
+    path: 'style-details/:slug',
+    loadChildren: () => import('./style-details/style-details.module').then(m => m.StyleDetailsPageModule)
+  },
+  {
+    path: 'discover/artists',
+    loadChildren: () => import('./artists/artists.module').then(m => m.ArtistsPageModule)
+  },
+  {
+    path: 'artist-details/:slug',
+    loadChildren: () => import('./artist-details/artist-details.module').then(m => m.ArtistDetailsPageModule)
+  },
+  {
+    path: 'painting',
+    loadChildren: () => import('./painting/painting.module').then(m => m.PaintingPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then(m => m.AboutPageModule)
+  },
 ];
 
 @NgModule({

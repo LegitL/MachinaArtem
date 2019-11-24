@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ artist?.artistName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-padding-bottom">
+    <div class="title-image">
+      <ion-img [src]="artist ? fullImageUrl(artist.image) : ''"></ion-img>
+    </div>
+    <p class="ion-padding-horizontal" [innerHTML]="wikipediaPageSummary ? wikipediaPageSummary.extract_html : ''"></p>
+    <p class="ion-padding-horizontal" *ngIf="artist && wikipediaUrl !== null">Wikipedia: <a [href]="wikipediaUrl" target="_blank">{{wikipediaUrl}} <ion-icon name="open"></ion-icon></a></p>
+  </div>
+  <ion-virtual-scroll [items]="paintings" approxItemHeight="100px">
+    <ion-item *virtualItem="let painting" detail tappable (click)="showPainting(painting)">
+      <ion-thumbnail class="large" slot="start">
+        <ion-img [src]="smallImageUrl(painting.image)"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h3>{{ painting.title }}</h3>
+        <p>{{ painting.artistName }} - {{ painting.year}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>
+  

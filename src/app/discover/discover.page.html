@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Discover</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main">
+    <ion-avatar tappable (click)="showPainting(paintingOfTheDay)" *ngIf="!loading">
+      <ion-img [src]="smallImageUrl(paintingOfTheDay?.image)"></ion-img>
+    </ion-avatar>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <ion-button routerLink="styles">Styles</ion-button>
+    <ion-button routerLink="artists">Artists</ion-button>
+  </div>
+</ion-content>

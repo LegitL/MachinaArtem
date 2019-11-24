@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Artists</ion-title>
+  </ion-toolbar>
+  <ion-searchbar (ionChange)="onSearchTerm($event)"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-virtual-scroll [items]="artists" approxItemHeight="100px">
+    <ion-item *virtualItem="let artist" [routerLink]="['/artist-details', artist.url]"> 
+      <ion-avatar class="large" slot="start">
+        <ion-img [src]="smallImageUrl(artist.image)"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        {{ artist.artistName }}
+        <p>{{ artist.birthDayAsString }} - {{ artist.deathDayAsString }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>
