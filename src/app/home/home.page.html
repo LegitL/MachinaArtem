@@ -28,7 +28,7 @@
   </ion-slides>
   <img id="style"
       (load)="stylize()"
-      [src]="selectedStyleIndex !== undefined ? styles[selectedStyleIndex].imgUrl : ''"
+      [src]="selectedStyleIndex !== undefined ? styles[selectedStyleIndex].image : ''"
       crossorigin="anonymous">
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
@@ -48,7 +48,7 @@
   <ion-slides class="ion-padding" pager="false" [options]="slidesStylesOptions">
     <ion-slide *ngFor="let style of styles; index as styleIndex">
       <ion-button class="style" expand="block" fill="clear" (click)="slideStyleTap(styleIndex)">
-        <img [src]="style.imgUrl" crossorigin="anonymous">
+        <img [src]="smallImageUrl(style.image)" crossorigin="anonymous">
       </ion-button>
     </ion-slide>
   </ion-slides>
