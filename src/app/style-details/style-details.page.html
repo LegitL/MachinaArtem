@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ style?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-padding-bottom">
+    <div class="title-image">
+      <ion-img [src]="style ? style.thumbnailUrl : ''"></ion-img>
+    </div>
+    <p class="ion-padding-horizontal" [innerHTML]="wikipediaPageSummary ? wikipediaPageSummary.extract_html : ''"></p>
+    <p class="ion-padding-horizontal" *ngIf="style">Wikipedia: <a [href]="'https://en.wikipedia.org/wiki/' + style.wikipediaUrl" target="_blank">https://en.wikipedia.org/wiki/{{style.wikipediaUrl}} <ion-icon name="open"></ion-icon></a></p>
+  </div>
+  <ion-virtual-scroll [items]="paintings" approxItemHeight="100px">
+    <ion-item *virtualItem="let painting" detail tappable (click)="showPainting(painting)">
+      <ion-thumbnail class="large" slot="start">
+        <ion-img [src]="smallImageUrl(painting ? painting.image : '')"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h3>{{ painting.title }}</h3>
+        <p>{{ painting.artistName }} - {{ painting.year}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+  <ion-infinite-scroll (ionInfinite)="loadMorePaintings($event)">
+    <ion-infinite-scroll-content loadingText="Loading..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+  
