@@ -26,6 +26,6 @@ export class StyleSettingsPopoverComponent {
     this.popoverController.dismiss({
       styleAmount: this.styleAmount,
       styleSize: this.styleSize
-    })
+    });
   }
 }

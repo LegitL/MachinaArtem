@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   resultWidth = 0;
   styleAmount = 100;
   styleSize = 50;
-  photo: SafeResourceUrl = 'https://picsum.photos/414/736';
+  photo: SafeResourceUrl = 'https://picsum.photos/750/1050';
 
   sliderImageOptions = {
     zoom: {
@@ -31,13 +31,24 @@ export class HomePage implements OnInit {
     }
   };
 
-  slidesStylesOptions = {
-    spaceBetween: 10,
-    slidesPerView: 3.4,
+  slidesThumbnailsOptions = {
+    slidesPerView: 'auto',
+    zoom: false,
   };
 
-
-  constructor(
+  /**
+   * ...
+   * 
+   * @param platform ...
+   * @param sanitizer ...
+   * @param loadingController ...
+   * @param popoverController ...
+   * @param toastController ...
+   * @param base64ToGallery ...
+   * @param favoriteStylesService ... 
+   * @param wikiArtService ...
+   */
+  public constructor(
     private platform: Platform,
     private sanitizer: DomSanitizer,
     private loadingController: LoadingController,
@@ -48,6 +59,9 @@ export class HomePage implements OnInit {
     private wikiArtService: WikiArtService,
   ) {  }
 
+  /**
+   * ...
+   */
   public async ngOnInit(): Promise<void> {
     this.model = new mi.ArbitraryStyleTransferNetwork();
     this.model.initialize();
@@ -56,6 +70,9 @@ export class HomePage implements OnInit {
     this.styles = await this.favoriteStylesService.getAllFavorites();
   }
 
+  /**
+   * ...
+   */
   public async takePicture(): Promise<void> {
     const image = await Plugins.Camera.getPhoto({
       resultType: CameraResultType.Uri,
@@ -65,6 +82,9 @@ export class HomePage implements OnInit {
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
   }
 
+  /**
+   * ...
+   */
   public async savePicture(): Promise<void> {
     if (this.platform.is('cordova')) {
       try {
@@ -83,15 +103,32 @@ export class HomePage implements OnInit {
     }
   }
 
-  public slideStyleTap(styleIndex: number): void {
-    this.selectedStyleIndex = styleIndex;
+  /**
+   * ...
+   * 
+   * @param event ...
+   */
+  public onThumbnailTap(event: any) {
+    const tappedIndex = event.target.swiper.clickedIndex;
+    if (tappedIndex !== undefined) {
+      if (tappedIndex === 0) {
+        // 'more' has been tapped/clicked
+//        this.showMoreModal();
+      } else {
+        // Thumbnail with styles has been tapped/clicked
+        this.selectedStyleIndex = tappedIndex - 1;  // account for first one beeing "more"
 
-    const originalImg = document.getElementById('original') as HTMLImageElement;
-    const styleImg = document.getElementById('style') as HTMLImageElement;
-    const styleRatio = this.styleSize / 100;
-    styleImg.style.setProperty('height',  (originalImg.height * styleRatio) + 'px');
+        const originalImg = document.getElementById('original') as HTMLImageElement;
+        const styleImg = document.getElementById('style') as HTMLImageElement;
+        const styleRatio = this.styleSize / 100;
+        styleImg.style.setProperty('height',  (originalImg.height * styleRatio) + 'px');
+      }
+    }
   }
 
+  /**
+   * ...
+   */
   public async stylize(): Promise<void> {
     await this.showLoader();
 
@@ -115,6 +152,9 @@ export class HomePage implements OnInit {
     }, 0);
   }
 
+  /**
+   * ...
+   */
   public prepareCanvas(): void {
     const resultCanvas = document.getElementById('result') as HTMLCanvasElement;
     const context = resultCanvas.getContext('2d');
@@ -122,10 +162,18 @@ export class HomePage implements OnInit {
     delete this.selectedStyleIndex;
   }
 
+  /**
+   * ...
+   */
   public shuffleImage(): void {
-    this.photo = `https://picsum.photos/414/736?${Math.random()}`;
+    this.photo = `https://picsum.photos/750/1050?${Math.random()}`;
   }
 
+  /**
+   * ...
+   * 
+   * @param ev ...
+   */
   public async showStyleSettingsPopover(ev: any): Promise<void> {
     const popover = await this.popoverController.create({
       component: StyleSettingsPopoverComponent,
@@ -146,18 +194,28 @@ export class HomePage implements OnInit {
     return await popover.present();
   }
 
+  /**
+   * ...
+   * 
+   * @param url ...
+   */
   public smallImageUrl(url: string): string {
     return this.wikiArtService.smallImageUrl(url);
   }
 
+  /*
+   * ... 
+   */
   private async showLoader() {
     this.loader = await this.loadingController.create({
-      message: 'Stylizing...',
-      translucent: true,
+      message: 'Stylizing...'
     });
     return await this.loader.present();
   }
 
+  /*
+   * ...
+   */
   private hideLoader() {
     this.loader.dismiss();
   }
