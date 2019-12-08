@@ -132,7 +132,7 @@
     "wikipediaUrl": "",
     "thumbnailUrl": "",
     "description": "",
-    "group": "Modern Art"
+    "group": ""
   },
   {
     "id": 15214,
@@ -804,7 +804,7 @@
     "wikipediaUrl": "Neo-pop",
     "thumbnailUrl": "https://uploads4.wikiart.org/00226/images/alfio-giuffrida/doppelpack.jpg!PortraitSmall.jpg",
     "description": "A postmodern art movement of the 1980s.",
-    "group": ""
+    "group": "Contemporary Art"
 
   },
   {
@@ -1006,10 +1006,10 @@
     "id": 462,
     "title": "Proto Renaissance",
     "url": "proto-renaissance",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Renaissance_art",
+    "thumbnailUrl": "https://uploads2.wikiart.org/images/duccio/crevole-madonna.jpg!PortraitSmall.jpg",
+    "description": "Painting, sculpture and decorative arts of that period of European history known as the early Renaissance.",
+    "group": "Renaissance Art"
   },
   {
     "id": 463,
@@ -1250,9 +1250,9 @@
     "title": "Tonalism",
     "url": "tonalism",
     "wikipediaUrl": "Tonalism",
-    "thumbnailUrl": "",
+    "thumbnailUrl": "https://uploads0.wikiart.org/images/george-inness/end-of-day-1855.jpg!PortraitSmall.jpg",
     "description": "An artistic style that emerged in the 1880s. Landscape paintings with an overall tone of colored atmosphere or mist.",
-    "group": ""
+    "group": "Modern Art"
   },
   {
     "id": 488,
@@ -1654,19 +1654,19 @@
     "id": 0,
     "title": "Viking art",
     "url": "viking-art",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Viking_art",
+    "thumbnailUrl": "https://uploads7.wikiart.org/00235/images/viking-art/buddha-bucket-buddha-b-tte.JPG!PortraitSmall.JPG",
+    "description": "Term for art of Scandinavia and Viking settlements of 8th-11th centuries CE.",
+    "group": "Medieval Art"
   },
   {
     "id": 0,
     "title": "Geometric",
     "url": "geometric-period",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Geometric_art",
+    "thumbnailUrl": "https://uploads6.wikiart.org/00238/images/ancient-greek-pottery/attic-middle-geometric-amphora-from-kerameikos-800.jpg!PortraitSmall.jpg",
+    "description": "A phase of Greek art characterized by geometric motifs in vase painting, centred in Athens and spread among Aegean trading cities.",
+    "group": "Ancient Greek Art"
   },
   {
     "id": 0,
@@ -1708,10 +1708,10 @@
     "id": 0,
     "title": "New Kingdom",
     "url": "new-kingdom",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "New_Kingdom_of_Egypt",
+    "thumbnailUrl": "https://uploads4.wikiart.org/00244/images/ancient-egyptian-painting/kheker-friese-tomb-of-tjay-ca-1550-1458-b-c.jpg!PortraitSmall.jpg",
+    "description": "Egypt's most prosperous time and marked the peak of its power.",
+    "group": "Ancient Egyptian Art"
   },
   {
     "id": 0,
@@ -1744,10 +1744,10 @@
     "id": 0,
     "title": "3rd Intermediate Period",
     "url": "3rd-intermediate-period",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Third_Intermediate_Period_of_Egypt",
+    "thumbnailUrl": "https://uploads8.wikiart.org/00244/images/ancient-egyptian-painting/nany-before-osiris-isis-and-nephthys-1.jpg!PortraitSmall.jpg",
+    "description": "Began with the death of Pharaoh Ramesses XI in 1070 BC, which ended the New Kingdom.",
+    "group": "Ancient Egyptian Art"
   },
   {
     "id": 402,
@@ -1762,46 +1762,46 @@
     "id": 16735,
     "title": "Mosan art",
     "url": "mosan-art",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Mosan_art",
+    "thumbnailUrl": "https://uploads6.wikiart.org/images/nicholas-of-verdun/moses-on-mount-sinai-1181.jpg!PortraitSmall.jpg",
+    "description": "A regional style of art from the valley of the Meuse in present-day Belgium, the Netherlands, and Germany.",
+    "group": "Medieval Art"
   },
   {
     "id": 481,
     "title": "Surrealism",
     "url": "surrealism",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Surrealism",
+    "thumbnailUrl": "https://uploads3.wikiart.org/images/rene-magritte/the-lovers-1928(1).jpg!PortraitSmall.jpg",
+    "description": "A cultural movement that started in 1917 where artists painted unnerving and illogical scenes",
+    "group": "Modern Art"
   },
   {
     "id": 404,
     "title": "Cloisonnism",
     "url": "cloisonnism",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Cloisonnism",
+    "thumbnailUrl": "https://uploads4.wikiart.org/images/emile-bernard/iron-bridges-at-asni-res-1887.jpg!PortraitSmall.jpg",
+    "description": "A style of post-Impressionist painting with bold and flat forms separated by dark contours.",
+    "group": "Modern Art"
   },
   {
     "id": 447,
     "title": "Neo-Romanticism",
     "url": "neo-romanticism",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Neo-romanticism",
+    "thumbnailUrl": "https://uploads5.wikiart.org/images/walter-crane/the-frog-prince-and-other-stories-1874-4.jpg!PortraitSmall.jpg",
+    "description": "A style which rejects, or opposes realism, naturalism, or avant-garde modernism.",
+    "group": "Modern Art"
   },
   {
     "id": 397,
     "title": "Art Informel",
     "url": "art-informel",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Informalism",
+    "thumbnailUrl": "https://uploads2.wikiart.org/images/asger-jorn/sm-ting-1940.jpg!PortraitSmall.jpg",
+    "description": "An art movement in Europe, parallel to abstract expressionism.",
+    "group": "Modern Art"
   },
   {
     "id": 15907,
@@ -1816,19 +1816,19 @@
     "id": 887,
     "title": "Neoplasticism",
     "url": "neoplasticism",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "De_Stijl",
+    "thumbnailUrl": "https://uploads3.wikiart.org/images/piet-mondrian/composition-with-oval-in-color-planes-ii-1914.jpg!PortraitSmall.jpg",
+    "description": "A Dutch art movement founded in 1917 in Leiden.",
+    "group": "Modern Art"
   },
   {
     "id": 15880,
     "title": "Concretism",
     "url": "concretism",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Concrete_art",
+    "thumbnailUrl": "https://uploads7.wikiart.org/images/friedrich-vordemberge-gildewart/composition-no-15-1925.jpg!PortraitSmall.jpg",
+    "description": "An art movement with a strong emphasis on geometrical abstraction.",
+    "group": "Modern Art"
   },
   {
     "id": 448,
@@ -1888,10 +1888,10 @@
     "id": 415,
     "title": "Early Renaissance",
     "url": "early-renaissance",
-    "wikipediaUrl": "",
-    "thumbnailUrl": "",
-    "description": "",
-    "group": ""
+    "wikipediaUrl": "Renaissance_art",
+    "thumbnailUrl": "https://uploads2.wikiart.org/images/domenico-veneziano/st-john-in-the-desert.jpg!PortraitSmall.jpg",
+    "description": "Painting, sculpture and decorative arts of that period of European history known as the early Renaissance.",
+    "group": "Renaissance Art"
   },
   {
     "id": 0,
