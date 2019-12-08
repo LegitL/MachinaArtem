@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HTTP } from '@ionic-native/http/ngx';
+import { Observable, from } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Platform } from '@ionic/angular';
 
 const baseUrl = 'http://www.wikiart.org/en';
 const dictionariesUrl = `${baseUrl}/App/wiki/DictionariesJson/`;
@@ -17,15 +19,17 @@ const paintingUrl = `${baseUrl}/App/Painting/ImageJson/`;
 export class WikiArtService {
 
   constructor(
+    private platform: Platform,
+    private http: HTTP,
     private httpClient: HttpClient,
   ) { }
 
   public  mostedViewedPaintings(): Observable<any[]> {
-    return this.httpClient.get<any[]>(mostViewedPaintingsUrl);
+    return this.httpGet(mostViewedPaintingsUrl);
   }
 
   public dictionaries(group: Groups): Observable<any[]> {
-    return this.httpClient.get<any[]>(dictionariesUrl + group);
+    return this.httpGet(dictionariesUrl + group);
   }
 
   public styles(): Observable<any[]> {
@@ -39,23 +43,23 @@ export class WikiArtService {
   }
 
   public stylePaintings(slug: string, page: number = 1): Observable<any> {
-    return this.httpClient.get<any>(`${paintingsByStyleUrl}/${slug}/${page}?json=2`);
+    return this.httpGet(`${paintingsByStyleUrl}/${slug}/${page}?json=2`);
   }
 
   public artists() {
-    return this.httpClient.get<any[]>(artistsUrl);
+    return this.httpGet(artistsUrl);
   }
 
   public artist(slug: string) {
-    return this.httpClient.get<any[]>(`${baseUrl}/${slug}?json=2`);
+    return this.httpGet(`${baseUrl}/${slug}?json=2`);
   }
 
   public artistPaintings(slug: string, page: number = 1): Observable<any> {
-    return this.httpClient.get<any>(`${paintingsByArtistUrl}?artistUrl=${slug}&json=2`);
+    return this.httpGet(`${paintingsByArtistUrl}?artistUrl=${slug}&json=2`);
   }
 
   public painting(id: string): Observable<any> {
-    return this.httpClient.get<any>(`${paintingUrl}/${id}`);
+    return this.httpGet(`${paintingUrl}/${id}`);
   }
 
   public fullImageUrl(url: string): string {
@@ -88,6 +92,16 @@ export class WikiArtService {
     }
 
     return newUrl;
+  }
+
+  private httpGet(url: string): Observable<any> {
+    if (this.platform.is('capacitor')) {
+      return from(this.http.get(url, null, null)).pipe(
+        map(response => JSON.parse(response.data))
+      );
+    } else {
+      return this.httpClient.get(url);
+    }
   }
 }
 

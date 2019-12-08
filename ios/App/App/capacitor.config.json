@@ -3,5 +3,8 @@
   "appName": "MachinaArtem",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "url": "http://10.0.1.136:8100"
+  }
 }
