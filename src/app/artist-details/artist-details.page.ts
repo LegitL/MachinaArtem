@@ -34,7 +34,6 @@ export class ArtistDetailsPage implements OnInit {
     if (this.artistSlug) {
       this.wikiArtService.artist(this.artistSlug).subscribe(artist => {
         this.artist = artist;
-        console.log(this.artist);
         this.wikipediaUrl = this.artist.wikipediaUrl;
         const wikipediaSlug = decodeURI(this.wikipediaUrl.replace('http://en.wikipedia.org/wiki/', ''));
         this.wikipediaService.pageSummary(wikipediaSlug).subscribe(pageSummary => {

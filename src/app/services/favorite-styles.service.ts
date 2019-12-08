@@ -41,15 +41,15 @@ export class FavoriteStylesService {
     await this.addAllFavorites(favorites);
   }
 
-  public async removeFavorite(id: string): Promise<void> {
+  public async removeFavorite(slug: string): Promise<void> {
     let favorites = await this.getAllFavorites();
-    favorites = favorites.filter(favorite => favorite.id !== id);
+    favorites = favorites.filter(favorite => favorite.slug !== slug);
     await this.addAllFavorites(favorites);
   }
 
-  public async hasFavorite(id: string): Promise<boolean> {
+  public async hasFavorite(slug: string): Promise<boolean> {
     const favorites = await this.getAllFavorites();
-    const found = favorites.find(favorite => favorite.id === id);
+    const found = favorites.find(favorite => favorite.slug === slug);
     return found !== undefined;
   }
 
@@ -64,7 +64,7 @@ export class FavoriteStylesService {
 }
 
 export interface FavoriteStyle {
-  id: string;
+  slug: string;
   title?: string;
   image: string;
   description?: string;
