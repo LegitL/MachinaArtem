@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
     zoom: {
       maxRatio: 3
     }
-  }
+  };
 
   slidesStylesOptions = {
     spaceBetween: 10,
@@ -50,12 +50,10 @@ export class HomePage implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.model = new mi.ArbitraryStyleTransferNetwork();
-    console.log(this.model);
     this.model.initialize();
 
     // Load favorite styles
     this.styles = await this.favoriteStylesService.getAllFavorites();
-    console.log(this.styles);
   }
 
   public async takePicture(): Promise<void> {
@@ -86,7 +84,6 @@ export class HomePage implements OnInit {
   }
 
   public slideStyleTap(styleIndex: number): void {
-    console.log(styleIndex);
     this.selectedStyleIndex = styleIndex;
 
     const originalImg = document.getElementById('original') as HTMLImageElement;
@@ -95,7 +92,7 @@ export class HomePage implements OnInit {
     styleImg.style.setProperty('height',  (originalImg.height * styleRatio) + 'px');
   }
 
-  public async stylize(): Promise<void >{
+  public async stylize(): Promise<void> {
     await this.showLoader();
 
     const originalImg = document.getElementById('original') as HTMLImageElement;
@@ -114,8 +111,8 @@ export class HomePage implements OnInit {
       this.model.stylize(originalImg, styleImg, strength).then((imageData: ImageData) => {
         resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
         this.hideLoader();
-      })
-    }, 0)
+      });
+    }, 0);
   }
 
   public prepareCanvas(): void {

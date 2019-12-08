@@ -18,7 +18,6 @@ export class StylesPage implements OnInit {
     this.wikiArtService.styles().subscribe(styles => {
       this.allStyles = styles;
       this.styles = this.groupBy(styles, 'group');
-      console.log(this.styles);
     });
   }
 
