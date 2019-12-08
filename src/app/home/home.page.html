@@ -1,27 +1,27 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
+      <ion-menu-button color="dark"></ion-menu-button>
     </ion-buttons>
 
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="shuffleImage()">
+      <ion-button (click)="shuffleImage()" color="dark">
         <ion-icon slot="icon-only" name="shuffle"></ion-icon>
       </ion-button>
-      <ion-button color="light" (click)="showStyleSettingsPopover($event)">
+      <ion-button (click)="showStyleSettingsPopover($event)" color="dark">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>    
 </ion-header>
 
-<ion-content fullscreen class="with-background-image" scrollX=false scrollY=false>
+<ion-content fullscreen scrollX=false scrollY=false>
   <ion-slides class="image" [options]="sliderImageOptions">
     <ion-slide>
       <div class="swiper-zoom-container where-magic-happens">
         <img id="original" 
             (load)="prepareCanvas()"
-            [src]="photo" crossorigin="anonymous" style="max-width: 320px; max-height: 390px;">
+            [src]="photo" crossorigin="anonymous">
         <canvas id="result" [height]="resultHeight" [width]="resultWidth"></canvas> 
       </div>
     </ion-slide>
@@ -32,24 +32,27 @@
       crossorigin="anonymous">
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button (click)="takePicture()" color="dark">
+    <ion-fab-button (click)="takePicture()">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="savePicture()" color="dark">
+    <ion-fab-button (click)="savePicture()">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
 
-<ion-footer>
-  <ion-slides class="ion-padding" pager="false" [options]="slidesStylesOptions">
-    <ion-slide *ngFor="let style of styles; index as styleIndex">
-      <ion-button class="style" expand="block" fill="clear" (click)="slideStyleTap(styleIndex)">
-        <img [src]="smallImageUrl(style.image)" crossorigin="anonymous">
-      </ion-button>
+<ion-footer no-border class="ion-padding-bottom ion-padding-top">
+  <ion-slides class="thumbnails" [options]="slidesThumbnailsOptions" (ionSlideTap)="onThumbnailTap($event)">
+    <ion-slide>
+      <div class="more">
+        <ion-icon size="large" name="more"></ion-icon>
+      </div>
+    </ion-slide>
+    <ion-slide *ngFor="let style of styles; let styleIndex = index; let last = last" [ngClass]="{ last: last }">
+      <img [src]="smallImageUrl(style.image)" crossorigin="anonymous">
     </ion-slide>
   </ion-slides>
 </ion-footer>
