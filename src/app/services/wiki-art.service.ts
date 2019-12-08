@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Platform } from '@ionic/angular';
 
 const baseUrl = 'http://www.wikiart.org/en';
@@ -33,7 +33,7 @@ export class WikiArtService {
   }
 
   public styles(): Observable<any[]> {
-    return this.httpGet('assets/data/styles.json');
+    return this.httpClient.get<any[]>('assets/data/styles.json');
   }
 
   public style(slug: string): Observable<any> {
@@ -97,7 +97,7 @@ export class WikiArtService {
   private httpGet(url: string): Observable<any> {
     if (this.platform.is('capacitor')) {
       return from(this.http.get(url, null, null)).pipe(
-        map(response => response.data)
+        map(response => JSON.parse(response.data))
       );
     } else {
       return this.httpClient.get(url);
