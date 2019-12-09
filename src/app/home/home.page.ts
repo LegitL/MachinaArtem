@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, PopoverController, Platform, ToastController } from '@ionic/angular';
+import { LoadingController, PopoverController, Platform, ToastController, ModalController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
@@ -7,6 +7,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 import { FavoriteStylesService, FavoriteStyle } from '../services/favorite-styles.service';
 import { WikiArtService } from '../services/wiki-art.service';
+import { FavoritesPage } from '../favorites/favorites.page';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ export class HomePage implements OnInit {
    * @param sanitizer ...
    * @param loadingController ...
    * @param popoverController ...
+   * @param modalController ...
    * @param toastController ...
    * @param base64ToGallery ...
    * @param favoriteStylesService ... 
@@ -53,6 +55,7 @@ export class HomePage implements OnInit {
     private sanitizer: DomSanitizer,
     private loadingController: LoadingController,
     private popoverController: PopoverController,
+    private modalController: ModalController,
     private toastController: ToastController,
     private base64ToGallery: Base64ToGallery,
     private favoriteStylesService: FavoriteStylesService,
@@ -62,12 +65,12 @@ export class HomePage implements OnInit {
   /**
    * ...
    */
-  public async ngOnInit(): Promise<void> {
+  public ngOnInit(): void {
     this.model = new mi.ArbitraryStyleTransferNetwork();
     this.model.initialize();
 
     // Load favorite styles
-    this.styles = await this.favoriteStylesService.getAllFavorites();
+    this.loadData();
   }
 
   /**
@@ -113,7 +116,7 @@ export class HomePage implements OnInit {
     if (tappedIndex !== undefined) {
       if (tappedIndex === 0) {
         // 'more' has been tapped/clicked
-//        this.showMoreModal();
+        this.showMoreModal();
       } else {
         // Thumbnail with styles has been tapped/clicked
         this.selectedStyleIndex = tappedIndex - 1;  // account for first one beeing "more"
@@ -183,15 +186,14 @@ export class HomePage implements OnInit {
       },
       event: ev
     });
-    popover.onDidDismiss().then(detail => {
-      if (detail.data) {
-        this.styleAmount = detail.data.styleAmount;
-        this.styleSize = detail.data.styleSize;
-        this.prepareCanvas();
-      }
-    });
+    await popover.present();
 
-    return await popover.present();
+    const detail = await popover.onWillDismiss();
+    if (detail.data) {
+      this.styleAmount = detail.data.styleAmount;
+      this.styleSize = detail.data.styleSize;
+      this.prepareCanvas();
+    }
   }
 
   /**
@@ -200,7 +202,26 @@ export class HomePage implements OnInit {
    * @param url ...
    */
   public smallImageUrl(url: string): string {
-    return this.wikiArtService.smallImageUrl(url);
+    return url.includes('data:') ? url : this.wikiArtService.smallImageUrl(url);
+  }
+
+  /*
+   * ...
+   */
+  private async loadData(): Promise<void> {
+    this.styles = await this.favoriteStylesService.getAllFavorites();
+  }
+
+  /*
+   * ...
+   */
+  private async showMoreModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: FavoritesPage
+    });
+    await modal.present();
+    await modal.onWillDismiss();
+    this.loadData();
   }
 
   /*

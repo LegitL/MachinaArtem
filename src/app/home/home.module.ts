@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
+import { FavoritesPageModule } from '../favorites/favorites.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    FavoritesPageModule,
     RouterModule.forChild([
       {
         path: '',

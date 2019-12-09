@@ -26,7 +26,7 @@ export class PaintingPage implements OnInit {
   public ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(map(() => window.history.state)).subscribe(async state => {
       this.painting = state.painting;
-      this.isFavorite = await this.favoriteStylesService.hasFavorite(this.getPaintingSlug(this.painting));
+      this.isFavorite = await this.favoriteStylesService.hasFavorite(this.painting.image);
     });
   }
 
@@ -53,9 +53,10 @@ export class PaintingPage implements OnInit {
       await this.favoriteStylesService.removeFavorite(this.painting.contentId);
     } else {
       const favorite: FavoriteStyle = {
-        slug: this.getPaintingSlug(painting),
         title: painting.title,
         image: painting.image,
+        isPublic: false,
+        isWikiart: true,
         date: painting.yearAsString,
         author: {
           name: painting.artistName,
@@ -65,12 +66,5 @@ export class PaintingPage implements OnInit {
       await this.favoriteStylesService.addFavorite(favorite);
     }
     this.isFavorite = !this.isFavorite;
-  }
-
-  private getPaintingSlug(painting: any): string {
-    let slug: string = painting.image;
-    slug = slug.substr(slug.lastIndexOf('/'));
-    slug = slug.substring(0, slug.indexOf('.'));
-    return slug;
   }
 }

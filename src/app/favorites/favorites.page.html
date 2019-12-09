@@ -1,0 +1,44 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Favorites</ion-title>
+    <ion-buttons *ngIf="!reorderMode" slot="end">
+      <ion-button (click)="toggleReorderMode()">Reorder</ion-button>
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="reorderMode" slot="end">
+      <ion-button (click)="toggleReorderMode()">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-item class="add">
+      <div slot="start" (click)="add()">
+        <ion-icon size="large" name="add"></ion-icon>
+      </div>
+      <ion-label class="ion-text-wrap">Tap to add from gallery or camera</ion-label>
+    </ion-item>
+    <ion-reorder-group (ionItemReorder)="doReorder($event)" [disabled]="!reorderMode">
+      <ion-item *ngFor="let favorite of favorites; let i = index">
+        <ion-thumbnail slot="start">
+          <img [src]="smallImageUrl(favorite.image)" crossorigin="anonymous">
+          <ion-button *ngIf="!(reorderMode || favorite.isWikiart)" (click)="togglePublic(i)">
+            <ion-icon *ngIf="!favorite.isPublic" slot="icon-only" name="eye-off"></ion-icon>
+            <ion-icon *ngIf="favorite.isPublic" slot="icon-only" name="eye"></ion-icon>
+          </ion-button>
+        </ion-thumbnail>
+        <div class="container">
+          <ion-input placeholder="Title" [value]="favorite.title" [readonly]="favorite.isWikiart"
+              (ionBlur)="onTitleBlur($event, i)"></ion-input>
+          <ion-textarea placeholder="Description" rows="3" [value]="favorite.description" [readonly]="favorite.isWikiart"
+              (ionBlur)="onDescriptionBlur($event, i)"></ion-textarea>
+        </div>
+        <ion-button *ngIf="!reorderMode" fill="clear" slot="end" class="delete" (click)="delete(i)">
+          <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+        </ion-button>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+</ion-content>

@@ -36,20 +36,33 @@ export class FavoriteStylesService {
   }
 
   public async addFavorite(style: FavoriteStyle): Promise<void> {
+    style.slug = this.getSlug(style.image);
     const favorites = await this.getAllFavorites();
-    favorites.push(style);
+    favorites.splice(0, 0, style);
     await this.addAllFavorites(favorites);
   }
 
-  public async removeFavorite(slug: string): Promise<void> {
+  public async updateFavorite(style: FavoriteStyle, index: number): Promise<void> {
+    const favorites = await this.getAllFavorites();
+    favorites[index] = style;
+    await this.addAllFavorites(favorites);
+  }
+
+  public async moveItem(from: number, to: number): Promise<void> {
+    const favorites = await this.getAllFavorites();
+    favorites.splice(to, 0, favorites.splice(from, 1)[0]);
+    await this.addAllFavorites(favorites);
+  }
+
+  public async removeFavorite(index: number): Promise<void> {
     let favorites = await this.getAllFavorites();
-    favorites = favorites.filter(favorite => favorite.slug !== slug);
+    favorites.splice(index, 1);
     await this.addAllFavorites(favorites);
   }
 
-  public async hasFavorite(slug: string): Promise<boolean> {
+  public async hasFavorite(url: string): Promise<boolean> {
     const favorites = await this.getAllFavorites();
-    const found = favorites.find(favorite => favorite.slug === slug);
+    const found = favorites.find(favorite => favorite.slug === this.getSlug(url));
     return found !== undefined;
   }
 
@@ -61,13 +74,22 @@ export class FavoriteStylesService {
   public async setInitialize(flag: boolean): Promise<void> {
     await Storage.set({ key: initializedKey, value: JSON.stringify(flag) });
   }
+
+  private getSlug(url: string): string {
+    let slug: string = url;
+    slug = slug.substr(slug.lastIndexOf('/'));
+    slug = slug.substring(0, slug.indexOf('.'));
+    return slug;
+  }
 }
 
 export interface FavoriteStyle {
-  slug: string;
+  slug?: string;
   title?: string;
   image: string;
   description?: string;
+  isPublic: boolean;
+  isWikiart: boolean;
   date: string;
   author?: {
     name: string;
