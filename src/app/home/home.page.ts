@@ -202,7 +202,7 @@ export class HomePage implements OnInit {
    * @param url ...
    */
   public smallImageUrl(url: string): string {
-    return this.wikiArtService.smallImageUrl(url);
+    return url.includes('data:') ? url : this.wikiArtService.smallImageUrl(url);
   }
 
   /*

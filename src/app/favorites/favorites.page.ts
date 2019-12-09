@@ -21,7 +21,6 @@ export class FavoritesPage implements OnInit {
    * @param modalController ...
    */
   constructor(
-    private sanitizer: DomSanitizer,
     private modalController: ModalController,
     private toastController: ToastController,
     private favoriteStylesService: FavoriteStylesService,
@@ -64,25 +63,24 @@ export class FavoritesPage implements OnInit {
    * ...
    */
   public async add(): Promise<void> {
-    // const image = await Plugins.Camera.getPhoto({
-    //   resultType: CameraResultType.Uri,
-    //   source: CameraSource.Prompt
-    // });
-
-    // const imageData = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
-    // const favorite: FavoriteStyle = {
-    //   isWikiart: false,
-    //   isPublic: false,
-    //   title: '',
-    //   description: '',
-    //   image: '' + imageData,
-    //   date: (new Date()).toDateString(),
-    //   author: {
-    //     name: 'You'
-    //   }
-    // };
-    // await this.favoriteStylesService.addFavorite(favorite);
-    // this.loadData();
+    const image = await Plugins.Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt
+    });
+    console.log(image);
+    const favorite: FavoriteStyle = {
+      isWikiart: false,
+      isPublic: false,
+      title: '',
+      description: '',
+      image: image.dataUrl,
+      date: (new Date()).toDateString(),
+      author: {
+        name: 'You'
+      }
+    };
+    await this.favoriteStylesService.addFavorite(favorite);
+    this.loadData();
   }
 
   /**
@@ -152,7 +150,7 @@ export class FavoritesPage implements OnInit {
    * @param url ...
    */
   public smallImageUrl(url: string): string {
-    return this.wikiArtService.smallImageUrl(url);
+    return url.includes('data:') ? url : this.wikiArtService.smallImageUrl(url);
   }
 
   /*
