@@ -34,7 +34,11 @@ export class AuthService {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  public logoutUser(): Promise<void> {
-    return this.afAuth.auth.signOut();
+  public async logoutUser(): Promise<void> {
+    try {
+      await this.afAuth.auth.signOut()
+    } catch (error) {
+      console.error('Could not logout:', error);
+    }
   }
 }

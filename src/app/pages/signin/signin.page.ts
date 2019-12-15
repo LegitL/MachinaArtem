@@ -12,8 +12,18 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SigninPage implements OnInit {
   signinForm: FormGroup;
   errorMessage: string = '';
+
+  validationMessages = {
+    'email': [
+      { type: 'required', message: 'Email is required.' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required.' }
+    ]
+  };
  
-  constructor(
+
+  public constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private authService: AuthService
@@ -25,15 +35,6 @@ export class SigninPage implements OnInit {
       password: ['', Validators.required],
     });
   }
- 
-  validationMessages = {
-    'email': [
-      { type: 'required', message: 'Email is required.' }
-    ],
-    'password': [
-      { type: 'required', message: 'Password is required.' }
-    ]
-  };
  
   public async loginUser(value: any) {
     try {

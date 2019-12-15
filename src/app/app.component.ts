@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
+    private navController: NavController,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public async signout(): Promise<void> {
-    await this.authService.logoutUser();
+  public navigateToProfile(): void {
+    this.navController.navigateRoot('/profile');
   }
 }
