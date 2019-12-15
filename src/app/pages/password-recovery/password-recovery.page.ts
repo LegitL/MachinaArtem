@@ -5,12 +5,13 @@ import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.page.html',
-  styleUrls: ['./signin.page.scss'],
+  selector: 'app-password-recovery',
+  templateUrl: './password-recovery.page.html',
+  styleUrls: ['./password-recovery.page.scss'],
 })
-export class SigninPage implements OnInit {
-  signinForm: FormGroup;
+export class PasswordRecoveryPage implements OnInit {
+  resetPasswordForm: FormGroup;
+  instructionsSent = false;
   errorMessage: string = '';
  
   constructor(
@@ -20,9 +21,8 @@ export class SigninPage implements OnInit {
   ) { }
  
   public ngOnInit(): void {
-    this.signinForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+    this.resetPasswordForm = this.formBuilder.group({
+      email: ['', Validators.required]
     });
   }
  
@@ -37,20 +37,15 @@ export class SigninPage implements OnInit {
  
   public async loginUser(value: any) {
     try {
-      await this.authService.loginUser(value.email, value.password);
-      this.errorMessage = "";
-      this.navCtrl.navigateRoot('/home');
+      await this.authService.resetUserPassword(value.email);
+      this.instructionsSent = true;
     } catch (err) {
-      console.error('Could not sign in:', err)
+      console.error('Could not reset password:', err)
       this.errorMessage = err.message;
     }
   }
 
-  public navigateToPasswordRecovery(): void {
-    this.navCtrl.navigateForward('/password-recovery');
-  }
-
-  public navigateToSignup(): void {
-    this.navCtrl.navigateRoot('/signup');
+  public navigateBack(): void {
+    this.navCtrl.navigateBack('/signin');
   }
 }

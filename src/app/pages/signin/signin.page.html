@@ -39,7 +39,7 @@
         </ng-container>
   
         <ion-item class="ion-no-padding">
-          <ion-button size="normal" fill="clear" href="/password-recovery">Forgot your password?</ion-button>
+          <ion-button size="normal" fill="clear" (click)="navigateToPasswordRecovery()">Forgot your password?</ion-button>
         </ion-item>
       </ion-list>
     
@@ -48,7 +48,9 @@
       </ion-button>
     </form>
   
-    <ion-button size="large" fill="clear" expand="full" href="/signup">Don't have an account?</ion-button>
+    <ion-button size="large" fill="clear" expand="full" (click)="navigateToSignup()">
+      Don't have an account?
+    </ion-button>
   </div>
 
 </ion-content>

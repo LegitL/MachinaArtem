@@ -99,7 +99,7 @@ export class HomePage implements OnInit {
         });
         toast.present();
       } catch (ex) {
-        console.log('Error', ex);
+        console.error('Error', ex);
       }
     } else {
       console.log('not running on mobile device');

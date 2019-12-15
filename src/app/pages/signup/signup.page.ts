@@ -59,10 +59,14 @@ export class SignupPage implements OnInit {
     try {
       await this.authService.registerUser(value.email, value.password);
       this.errorMessage = "";
-      this.navCtrl.navigateForward('/home');
+      this.navCtrl.navigateRoot('/home');
     } catch (err) {
       console.error('Could not sign up:', err)
       this.errorMessage = err.message;
     }
+  }
+
+  public navigateToSignin(): void {
+    this.navCtrl.navigateRoot('/signin');
   }
 }
