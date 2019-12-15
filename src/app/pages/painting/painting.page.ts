@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { WikiArtService } from '../services/wiki-art.service';
-import { FavoriteStylesService, FavoriteStyle } from '../services/favorite-styles.service';
+import { WikiArtService } from '../../services/wiki-art.service';
+import { FavoriteStylesService, FavoriteStyle } from '../../services/favorite-styles.service';
 
 
 const IMAGE_PATTERN = 'images/';

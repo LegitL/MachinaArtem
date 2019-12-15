@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WikiArtService } from '../services/wiki-art.service';
+import { WikiArtService } from '../../services/wiki-art.service';
 
 @Component({
   selector: 'app-artists',

@@ -2,8 +2,8 @@ import { Component, OnInit  } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { FavoriteStylesService, FavoriteStyle } from '../services/favorite-styles.service';
-import { WikiArtService } from '../services/wiki-art.service';
+import { FavoriteStylesService, FavoriteStyle } from '../../services/favorite-styles.service';
+import { WikiArtService } from '../../services/wiki-art.service';
 import { depthToSpace } from '@tensorflow/tfjs';
 
 @Component({

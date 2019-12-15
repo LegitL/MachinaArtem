@@ -5,8 +5,8 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
-import { FavoriteStylesService, FavoriteStyle } from '../services/favorite-styles.service';
-import { WikiArtService } from '../services/wiki-art.service';
+import { FavoriteStylesService, FavoriteStyle } from '../../services/favorite-styles.service';
+import { WikiArtService } from '../../services/wiki-art.service';
 import { FavoritesPage } from '../favorites/favorites.page';
 
 @Component({
@@ -22,8 +22,8 @@ export class HomePage implements OnInit {
   selectedStyleIndex: number;
   resultHeight = 0;
   resultWidth = 0;
-  styleAmount = 100;
-  styleSize = 50;
+  styleAmount = 75;
+  styleSize = 75;
   photo: SafeResourceUrl = 'https://picsum.photos/750/1050';
 
   sliderImageOptions = {

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { WikiArtService } from '../services/wiki-art.service';
-import { WikipediaService } from '../services/wikipedia.service';
+import { WikiArtService } from '../../services/wiki-art.service';
+import { WikipediaService } from '../../services/wikipedia.service';
 
 @Component({
   selector: 'app-artist-details',
