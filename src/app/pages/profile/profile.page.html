@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="dark"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Your Profile</ion-title>
+  </ion-toolbar>    
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="profileForm" (ngSubmit)="save(profileForm.value)">
+    <div class="profile-header ion-text-center ion-padding ion-margin-top">
+      <ion-avatar *ngIf="profileImage && profileImage !== ''">
+        <img [src]="profileImage">
+      </ion-avatar>
+      <ion-icon color="light" name="person" *ngIf="!(profileImage && profileImage !== '')"></ion-icon>
+      <ion-button fill="clear" size="normal" (click)="captureProfileImage()">
+        <ion-text *ngIf="!(profileImage && profileImage !== '')">
+          Add Photo
+        </ion-text>
+        <ion-text *ngIf="profileImage && profileImage !== ''">
+          Update Photo
+        </ion-text>
+      </ion-button>
+      <p class="ion-no-margin ion-padding-bottom">You joined {{ joinedOn }}</p>
+    </div>
+  
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input type="email" inputmode="email" formControlName="email" placeholder="Email" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" formControlName="name" placeholder="Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea rows="4" formControlName="bio" placeholder="Enter your short bio here..."></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-button size="large" fill="solid" expand="full" type="submit" [disabled]="!profileForm.dirty && !profileForm.touched">
+      Save
+    </ion-button>
+    <!-- <ion-button size="large" fill="clear" expand="full" (click)="changePassword()">
+      Change Password
+    </ion-button> -->
+    <ion-button size="large" fill="clear" expand="full" (click)="logout()">
+      Log Out
+    </ion-button>
+</form>
+</ion-content>

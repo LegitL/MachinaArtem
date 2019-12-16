@@ -1,0 +1,22 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="dark"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Community</ion-title>
+  </ion-toolbar>    
+</ion-header>
+
+<ion-content>
+  <ion-virtual-scroll [items]="styles" approxItemHeight="100px">
+    <ion-item *virtualItem="let style" detail tappable (click)="showStyle(style)">
+      <ion-thumbnail class="large" slot="start">
+        <ion-img [src]="style.image"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h3>{{ style.title }}</h3>
+        <p>{{ style.author?.name }} - {{ style.date}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>

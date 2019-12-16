@@ -1,0 +1,56 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="dark"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Log In</ion-title>
+  </ion-toolbar>    
+</ion-header>
+
+<ion-content>
+  <div class="signin">
+    <h1 class="ion-padding-horizontal">Machina<br>Artem</h1>
+    <h2 class="ion-padding-horizontal">Your Personal Art Machine</h2>
+  
+    <form class="form" [formGroup]="signinForm" (ngSubmit)="loginUser(signinForm.value)">
+      <ion-list lines="none">
+        <ion-item class="input">
+          <ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ng-container *ngFor="let validation of validationMessages.email">
+          <div class="error-message"
+            *ngIf="signinForm.get('email').hasError(validation.type) && (signinForm.get('email').dirty || signinForm.get('email').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+  
+        <ion-item class="input">
+          <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+        </ion-item>
+        <ng-container *ngFor="let validation of validationMessages.password">
+          <div class="ion-padding" class="error-message"
+            *ngIf="signinForm.get('password').hasError(validation.type) && (signinForm.get('password').dirty || signinForm.get('password').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+  
+        <ng-container *ngIf="errorMessage !== ''">
+          <div class="error-message">{{errorMessage}}</div>
+        </ng-container>
+  
+        <ion-item class="ion-no-padding">
+          <ion-button size="normal" fill="clear" (click)="navigateToPasswordRecovery()">Forgot your password?</ion-button>
+        </ion-item>
+      </ion-list>
+    
+      <ion-button size="large" fill="solid" expand="full" type="submit" [disabled]="!signinForm.valid">
+        Log In
+      </ion-button>
+    </form>
+  
+    <ion-button size="large" fill="clear" expand="full" (click)="navigateToSignup()">
+      Don't have an account?
+    </ion-button>
+  </div>
+
+</ion-content>

@@ -1,45 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'Discover',
-      url: '/discover',
-      icon: 'color-palette'
-    },
-    {
-      title: 'About',
-      url: '/about',
-      icon: 'information-circle-outline'
-    }
-  ];
+export class AppComponent implements OnInit {
+  isAuthenticated = false;
 
   constructor(
     private platform: Platform,
+    private navController: NavController,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authService: AuthService
   ) {
-    this.initializeApp();
-  }
-
-  initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  public ngOnInit(): void {
+    this.authService.getUser().subscribe(user => {
+      this.isAuthenticated = user !== null;
+    });
+  }
+
+  public navigateToProfile(): void {
+    this.navController.navigateRoot('/profile');
   }
 }

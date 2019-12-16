@@ -8,12 +8,44 @@
       </ion-header>
       <ion-content>
         <ion-list lines="none">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/home">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>Home</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/discover">
+              <ion-icon slot="start" name="color-palette"></ion-icon>
+              <ion-label>Discover</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/community">
+              <ion-icon slot="start" name="images"></ion-icon>
+              <ion-label>Community</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/about">
+              <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+              <ion-label>About</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list lines="none" *ngIf="!isAuthenticated">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/signin">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              <ion-label>Log In</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list lines="none" *ngIf="isAuthenticated">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item tappable (click)="navigateToProfile()">
+              <ion-icon slot="start" name="person"></ion-icon>
+              <ion-label>Profile</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
