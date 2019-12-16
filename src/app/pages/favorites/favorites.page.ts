@@ -2,7 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 import { ModalController, ToastController, LoadingController } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { FavoriteStylesService } from '../../services/favorite-styles.service';
-import { FavoriteStyle } from 'src/app/models/favorite-style';
+import { Style } from 'src/app/models/style';
 import { WikiArtService } from '../../services/wiki-art.service';
 import * as uuidv4 from 'uuid/v4';
 
@@ -70,7 +70,7 @@ export class FavoritesPage implements OnInit {
       source: CameraSource.Prompt
     });
     console.log(image);
-    const favorite: FavoriteStyle = {
+    const favorite: Style = {
       slug: uuidv4(),
       isWikiart: false,
       isPublic: false,

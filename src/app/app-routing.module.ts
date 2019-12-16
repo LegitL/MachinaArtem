@@ -36,6 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/painting/painting.module').then(m => m.PaintingPageModule)
   },
   {
+    path: 'community',
+    loadChildren: () => import('./pages/community/community.module').then( m => m.CommunityPageModule)
+  },
+  {
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule)
   },

@@ -6,7 +6,7 @@ import * as mi from '@magenta/image';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
 import { FavoriteStylesService } from '../../services/favorite-styles.service';
-import { FavoriteStyle } from 'src/app/models/favorite-style';
+import { Style } from 'src/app/models/style';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { FavoritesPage } from '../favorites/favorites.page';
 
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
 
   loader: HTMLIonLoadingElement;
   model: any;
-  styles: FavoriteStyle[];
+  styles: Style[];
   selectedStyleIndex: number;
   resultHeight = 0;
   resultWidth = 0;

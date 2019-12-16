@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { FavoriteStylesService } from '../../services/favorite-styles.service';
-import { FavoriteStyle } from 'src/app/models/favorite-style';
+import { Style } from 'src/app/models/style';
 
 
 const IMAGE_PATTERN = 'images/';
@@ -53,7 +53,7 @@ export class PaintingPage implements OnInit {
     if (this.isFavorite) {
       await this.favoriteStylesService.removeFavorite(this.painting.contentId);
     } else {
-      const favorite: FavoriteStyle = {
+      const favorite: Style = {
         title: painting.title,
         image: painting.image,
         isPublic: false,

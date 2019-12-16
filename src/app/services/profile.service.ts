@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { UserProfile } from '../models/user-profile';
-import { FavoriteStyle } from '../models/favorite-style';
 
 
 @Injectable({
@@ -14,19 +12,17 @@ import { FavoriteStyle } from '../models/favorite-style';
 export class ProfileService {
   private userCollection: AngularFirestoreCollection<UserProfile>;
 
-  private currentUser: firebase.User;
-
   public constructor(
     private db: AngularFirestore,
     private authService: AuthService
   ) {
-    this.userCollection = db.collection<UserProfile>('User');
+    this.userCollection = this.db.collection<UserProfile>('User');
   }
 
   public async getUserProfile(): Promise<Observable<UserProfile>> {
-    this.currentUser = await this.authService.getUser().pipe(first()).toPromise();
-    if (this.currentUser) {
-      const id = this.currentUser.uid;
+    const currentUser = await this.authService.getUser().pipe(first()).toPromise();
+    if (currentUser) {
+      const id = currentUser.uid;
       return this.userCollection.doc<UserProfile>(id).valueChanges().pipe(
         map(user => ({ id, ...user }))
       );
@@ -35,10 +31,11 @@ export class ProfileService {
     }
   }
 
-  public updateUser(newProfile: UserProfile): Promise<void> {
-    const id = newProfile.id;
-    delete newProfile.id;
-    return this.userCollection.doc(id).update(newProfile);
+  public updateUser(profile: UserProfile): Promise<void> {
+    const profileCopy = {...profile};
+    const id = profileCopy.id;
+    delete profileCopy.id;
+    return this.userCollection.doc(id).update(profileCopy);
   }
 
   // public async updateEmail(newEmail: string, password: string): Promise<void> {
