@@ -5,7 +5,8 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import * as mi from '@magenta/image';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { StyleSettingsPopoverComponent } from './style-settings-popover/style-settings-popover.component';
-import { FavoriteStylesService, FavoriteStyle } from '../../services/favorite-styles.service';
+import { FavoriteStylesService } from '../../services/favorite-styles.service';
+import { FavoriteStyle } from 'src/app/models/favorite-style';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { FavoritesPage } from '../favorites/favorites.page';
 

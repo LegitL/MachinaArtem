@@ -1,10 +1,10 @@
 import { Component, OnInit  } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, LoadingController } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { FavoriteStylesService, FavoriteStyle } from '../../services/favorite-styles.service';
+import { FavoriteStylesService } from '../../services/favorite-styles.service';
+import { FavoriteStyle } from 'src/app/models/favorite-style';
 import { WikiArtService } from '../../services/wiki-art.service';
-import { depthToSpace } from '@tensorflow/tfjs';
+import * as uuidv4 from 'uuid/v4';
 
 @Component({
   selector: 'app-favorites',
@@ -12,6 +12,7 @@ import { depthToSpace } from '@tensorflow/tfjs';
   styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
+  loader
   reorderMode = false;
   favorites: any[];
 
@@ -23,6 +24,7 @@ export class FavoritesPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private toastController: ToastController,
+    private loadingController: LoadingController,
     private favoriteStylesService: FavoriteStylesService,
     private wikiArtService: WikiArtService
   ) {}
@@ -69,6 +71,7 @@ export class FavoritesPage implements OnInit {
     });
     console.log(image);
     const favorite: FavoriteStyle = {
+      slug: uuidv4(),
       isWikiart: false,
       isPublic: false,
       title: '',
@@ -79,8 +82,13 @@ export class FavoritesPage implements OnInit {
         name: 'You'
       }
     };
-    await this.favoriteStylesService.addFavorite(favorite);
-    this.loadData();
+    this.showLoader();
+    try {
+      await this.favoriteStylesService.addFavorite(favorite);
+      this.loadData();
+    } finally {
+      this.hideLoader();
+    }
   }
 
   /**
@@ -133,8 +141,13 @@ export class FavoritesPage implements OnInit {
    * @param index ...
    */
   public async delete(index: number): Promise<void> {
-    await this.favoriteStylesService.removeFavorite(index);
-    this.loadData();
+    this.showLoader();
+    try {
+      await this.favoriteStylesService.removeFavorite(index);
+      this.loadData();
+    } finally {
+      this.hideLoader();
+    }
   }
 
   /**
@@ -158,5 +171,22 @@ export class FavoritesPage implements OnInit {
    */
   private async loadData(): Promise<void> {
     this.favorites = await this.favoriteStylesService.getAllFavorites();
+  }
+
+    /*
+   * ... 
+   */
+  private async showLoader() {
+    this.loader = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    return await this.loader.present();
+  }
+
+  /*
+   * ...
+   */
+  private hideLoader() {
+    this.loader.dismiss();
   }
 }

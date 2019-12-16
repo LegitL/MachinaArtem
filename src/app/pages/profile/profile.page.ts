@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ToastController, NavController } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraDirection, CameraSource } from '@capacitor/core';
-import { ProfileService, UserProfile } from 'src/app/services/profile.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
+import { ProfileService } from 'src/app/services/profile.service';
+import { UserProfile } from 'src/app/models/user-profile';
+import { FavoriteStylesService } from 'src/app/services/favorite-styles.service';
 
 const { Camera } = Plugins;
 
@@ -25,10 +27,12 @@ export class ProfilePage implements OnInit {
     private toastController: ToastController,
     private authService: AuthService,
     private profileService: ProfileService,
+    private favoriteStylesService: FavoriteStylesService,
   ) { }
  
   public async ngOnInit(): Promise<void> {
     this.profileForm = this.formBuilder.group({
+      id: [''],
       email: [''],
       name: [''],
       bio: [''],
@@ -82,12 +86,13 @@ export class ProfilePage implements OnInit {
     // TODO: Implement change password
   }
 
-  public logout(): void {
+  public async logout(): Promise<void> {
     if (this.profileSubscription) {
       this.profileSubscription.unsubscribe();
     }
 
-    this.authService.logoutUser();
+    await this.authService.logoutUser();
+    await this.favoriteStylesService.removeAllFavorites();
     this.navCtrl.navigateRoot('/signin');
   }
 }
