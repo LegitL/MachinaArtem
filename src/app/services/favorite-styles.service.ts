@@ -82,12 +82,10 @@ export class FavoriteStylesService {
             bio: userProfile.bio,
             avatar: userProfile.avatar,
           }
-          console.log('Add style:', style);
           const styleDocRef = await this.communityStylesService.addStyle(publicStyle);
           style.id = styleDocRef.id;
         }
       }));
-      console.log('Favorites to save:', favorites);
       const favoritesValue = JSON.stringify(favorites);
       userProfile.favoriteStyles = favoritesValue;
       await this.profileService.updateUser(userProfile);

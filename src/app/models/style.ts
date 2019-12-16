@@ -1,5 +1,5 @@
 export interface Style {
-  id?: string;  // If public, this wil be Style collection document id
+  id?: string;  // If public, this will be Style collection document id
   slug?: string;
   title?: string;
   image: string;
