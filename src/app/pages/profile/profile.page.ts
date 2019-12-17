@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserProfile } from 'src/app/models/user-profile';
 import { FavoriteStylesService } from 'src/app/services/favorite-styles.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 const { Camera } = Plugins;
 
@@ -19,6 +20,7 @@ export class ProfilePage implements OnInit {
   profileForm: FormGroup;
   errorMessage: string = '';
   profileImage = '';
+  userProfile: UserProfile;
   profileSubscription: Subscription;
  
   constructor(
@@ -32,7 +34,6 @@ export class ProfilePage implements OnInit {
  
   public async ngOnInit(): Promise<void> {
     this.profileForm = this.formBuilder.group({
-      id: [''],
       email: [''],
       name: [''],
       bio: [''],
@@ -41,8 +42,8 @@ export class ProfilePage implements OnInit {
     const userProfile$ = await this.profileService.getUserProfile();
     this.profileSubscription = userProfile$.subscribe(user => {
       this.profileForm.patchValue(user);
-      this.profileImage = user.avatar;
-    });
+      this.userProfile = user;
+    });  
   }
  
   public async captureProfileImage(): Promise<void> {
@@ -55,12 +56,11 @@ export class ProfilePage implements OnInit {
       source: CameraSource.Prompt,
       resultType: CameraResultType.DataUrl,
     });
-    const newProfile: UserProfile = {
-      avatar: image.dataUrl
-    };
+
+    this.userProfile.avatar = image.dataUrl;
 
     try {
-      await this.profileService.updateUser(newProfile);
+      await this.profileService.updateUser(this.userProfile);
     } catch (error) {
      console.error('Could not save avatar:', error);
       // TODO: Show user error message.
@@ -69,8 +69,9 @@ export class ProfilePage implements OnInit {
 
   public async save(newProfile: UserProfile) {
     try {
-       await this.profileService.updateUser(newProfile);
-       const toast = await this.toastController.create({
+      this.userProfile = { ...this.userProfile, ...newProfile}
+      await this.profileService.updateUser(this.userProfile);
+      const toast = await this.toastController.create({
         message: 'Profile changes saved',
         color: 'light',
         duration: 2000

@@ -10,15 +10,15 @@
 <ion-content>
   <form [formGroup]="profileForm" (ngSubmit)="save(profileForm.value)">
     <div class="profile-header ion-text-center ion-padding ion-margin-top">
-      <ion-avatar *ngIf="profileImage && profileImage !== ''">
-        <img [src]="profileImage">
+      <ion-avatar *ngIf="userProfile?.avatar && userProfile?.avatar !== ''">
+        <img [src]="userProfile?.avatar">
       </ion-avatar>
-      <ion-icon color="light" name="person" *ngIf="!(profileImage && profileImage !== '')"></ion-icon>
-      <ion-button fill="clear" size="normal" (click)="captureProfileImage()">
-        <ion-text *ngIf="!(profileImage && profileImage !== '')">
+      <ion-icon color="light" name="person" *ngIf="!(userProfile?.avatar && userProfile?.avatar !== '')"></ion-icon>
+      <ion-button fill="clear" size="normal" (click)="captureuserProfile?.avatar()">
+        <ion-text *ngIf="!(userProfile?.avatar && userProfile?.avatar !== '')">
           Add Photo
         </ion-text>
-        <ion-text *ngIf="profileImage && profileImage !== ''">
+        <ion-text *ngIf="userProfile?.avatar && userProfile?.avatar !== ''">
           Update Photo
         </ion-text>
       </ion-button>

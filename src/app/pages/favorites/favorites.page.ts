@@ -5,6 +5,7 @@ import { FavoriteStylesService } from '../../services/favorite-styles.service';
 import { Style } from 'src/app/models/style';
 import { WikiArtService } from '../../services/wiki-art.service';
 import * as uuidv4 from 'uuid/v4';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-favorites',
@@ -12,7 +13,7 @@ import * as uuidv4 from 'uuid/v4';
   styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
-  loader
+  loader: HTMLIonLoadingElement;
   reorderMode = false;
   favorites: any[];
 
@@ -25,6 +26,7 @@ export class FavoritesPage implements OnInit {
     private modalController: ModalController,
     private toastController: ToastController,
     private loadingController: LoadingController,
+    private profileService: ProfileService,
     private favoriteStylesService: FavoriteStylesService,
     private wikiArtService: WikiArtService
   ) {}
@@ -82,10 +84,10 @@ export class FavoritesPage implements OnInit {
         name: 'You'
       }
     };
-    this.showLoader();
     try {
+      await this.showLoader();
       await this.favoriteStylesService.addFavorite(favorite);
-      this.loadData();
+      await this.loadData();
     } finally {
       this.hideLoader();
     }
@@ -141,10 +143,10 @@ export class FavoritesPage implements OnInit {
    * @param index ...
    */
   public async delete(index: number): Promise<void> {
-    this.showLoader();
     try {
+      await this.showLoader();
       await this.favoriteStylesService.removeFavorite(index);
-      this.loadData();
+      await this.loadData();
     } finally {
       this.hideLoader();
     }
@@ -176,17 +178,17 @@ export class FavoritesPage implements OnInit {
     /*
    * ... 
    */
-  private async showLoader() {
+  private async showLoader(): Promise<void> {
     this.loader = await this.loadingController.create({
       message: 'Please wait...'
     });
-    return await this.loader.present();
+    await this.loader.present();
   }
 
   /*
    * ...
    */
-  private hideLoader() {
+  private hideLoader(): void {
     this.loader.dismiss();
   }
 }

@@ -33,9 +33,8 @@ export class ProfileService {
 
   public updateUser(profile: UserProfile): Promise<void> {
     const profileCopy = {...profile};
-    const id = profileCopy.id;
     delete profileCopy.id;
-    return this.userCollection.doc(id).update(profileCopy);
+    return this.userCollection.doc(profile.id).update(profileCopy);
   }
 
   // public async updateEmail(newEmail: string, password: string): Promise<void> {

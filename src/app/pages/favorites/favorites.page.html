@@ -22,7 +22,7 @@
     <ion-reorder-group (ionItemReorder)="doReorder($event)" [disabled]="!reorderMode">
       <ion-item *ngFor="let favorite of favorites; let i = index">
         <ion-thumbnail slot="start">
-          <img [src]="smallImageUrl(favorite.image)" crossorigin="anonymous">
+          <ion-img [src]="smallImageUrl(favorite.image)"></ion-img>>
           <ion-button *ngIf="!(reorderMode || favorite.isWikiart)" (click)="togglePublic(i)">
             <ion-icon *ngIf="!favorite.isPublic" slot="icon-only" name="eye-off"></ion-icon>
             <ion-icon *ngIf="favorite.isPublic" slot="icon-only" name="eye"></ion-icon>

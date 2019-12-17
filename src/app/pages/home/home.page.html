@@ -52,7 +52,7 @@
       </div>
     </ion-slide>
     <ion-slide *ngFor="let style of styles; let styleIndex = index; let last = last" [ngClass]="{ last: last }">
-      <img [src]="smallImageUrl(style.image)" crossorigin="anonymous">
+      <img [src]="smallImageUrl(style.image)">
     </ion-slide>
   </ion-slides>
 </ion-footer>

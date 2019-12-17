@@ -66,12 +66,12 @@ export class HomePage implements OnInit {
   /**
    * ...
    */
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.model = new mi.ArbitraryStyleTransferNetwork();
     this.model.initialize();
 
     // Load favorite styles
-    this.loadData();
+    await this.loadData();
   }
 
   /**
@@ -103,7 +103,7 @@ export class HomePage implements OnInit {
         console.error('Error', ex);
       }
     } else {
-      console.log('not running on mobile device');
+      console.error('Not running on mobile device');
     }
   }
 

@@ -23,21 +23,21 @@ export class FavoriteStylesService {
     private profileService: ProfileService,
     private communityStylesService: CommunityStylesService
   ) {
-    this.didInitialize().then(initialized => {
-      if (!initialized) {
-        this.initialize();
-      }
-    });
   }
 
-  private initialize(): void {
-    this.httpClient.get<Style[]>('assets/data/default-favorites.json').subscribe(favorites => {
-      this.addAllFavorites(favorites);
-      this.setInitialize(true);
-    });
+  private async initialize(): Promise<void> {
+    const favorites = await this.httpClient.get<Style[]>('assets/data/default-favorites.json').toPromise();
+    this.addAllFavorites(favorites);
+    this.setInitialize(true);
   }
 
   public async getAllFavorites(): Promise<Style[]> {
+    // Check if we are initialized and if not do lazy initialization here.
+    // This will happen after app fresh install and after logout.
+    if (!await this.didInitialize()) {
+      await this.initialize();
+    }
+
     // If signed-in, first retrive from firebase and store to local storage
     const userProfile$ = await this.profileService.getUserProfile();
     if (userProfile$) {
@@ -78,9 +78,9 @@ export class FavoriteStylesService {
           const publicStyle = {...style};
           publicStyle.author = {
             id: userProfile.id,
-            name: userProfile.name,
-            bio: userProfile.bio,
-            avatar: userProfile.avatar,
+            name: userProfile.name || '',
+            bio: userProfile.bio || '',
+            avatar: userProfile.avatar || '',
           }
           const styleDocRef = await this.communityStylesService.addStyle(publicStyle);
           style.id = styleDocRef.id;
