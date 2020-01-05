@@ -114,6 +114,18 @@ export class FavoriteStylesService {
     await this.addAllFavorites(favorites);
   }
 
+  public async flagStyle(style: Style, index: number, target: Style): Promise<any> {
+    const favorites = await this.getAllFavorites();
+    favorites[index] = style;
+
+    if(style.image == target.image){
+
+      style.isBanned = true;
+      
+    }
+
+  }
+
   public async moveItem(from: number, to: number): Promise<void> {
     const favorites = await this.getAllFavorites();
     favorites.splice(to, 0, favorites.splice(from, 1)[0]);

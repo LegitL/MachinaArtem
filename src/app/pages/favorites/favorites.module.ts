@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FavoritesPage } from './favorites.page';
+import { CommunityPage } from '../community/community.page';
 
 @NgModule({
   imports: [
@@ -13,5 +14,6 @@ import { FavoritesPage } from './favorites.page';
   ],
   declarations: [FavoritesPage],
   entryComponents: [FavoritesPage],
+  providers: [CommunityPage]
 })
 export class FavoritesPageModule {}

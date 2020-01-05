@@ -23,7 +23,7 @@
       <ion-item *ngFor="let favorite of favorites; let i = index">
         <ion-thumbnail slot="start">
           <ion-img [src]="smallImageUrl(favorite.image)"></ion-img>>
-          <ion-button *ngIf="!(reorderMode || favorite.isWikiart)" (click)="togglePublic(i)">
+          <ion-button *ngIf="!(reorderMode || favorite.isWikiart)" (click)="togglePublic(i)" (ionViewDidEnter) = "checkBanned(favorite)" (click) = "getBanned(favorite,i)" (click) = "checkBanned(favorite)">
             <ion-icon *ngIf="!favorite.isPublic" slot="icon-only" name="eye-off"></ion-icon>
             <ion-icon *ngIf="favorite.isPublic" slot="icon-only" name="eye"></ion-icon>
           </ion-button>

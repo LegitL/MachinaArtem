@@ -13,6 +13,7 @@
       <ion-thumbnail class="large" slot="start">
         <ion-img [src]="style.image"></ion-img>
       </ion-thumbnail>
+      <ion-button (click) = flag(style)>Flag</ion-button>
       <ion-label class="ion-text-wrap">
         <h3>{{ style.title }}</h3>
         <p>{{ style.author?.name }} - {{ style.date}}</p>

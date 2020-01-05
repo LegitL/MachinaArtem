@@ -62,7 +62,9 @@ export class PaintingPage implements OnInit {
         author: {
           name: painting.artistName,
           bio: ''
-        }
+        },
+        flag: 0,
+        isBanned: false
       };
       await this.favoriteStylesService.addFavorite(favorite);
     }

@@ -6,6 +6,7 @@ import { Style } from 'src/app/models/style';
 import { WikiArtService } from '../../services/wiki-art.service';
 import * as uuidv4 from 'uuid/v4';
 import { ProfileService } from 'src/app/services/profile.service';
+import { CommunityStylesService } from 'src/app/services/community-styles.service';
 
 @Component({
   selector: 'app-favorites',
@@ -28,7 +29,9 @@ export class FavoritesPage implements OnInit {
     private loadingController: LoadingController,
     private profileService: ProfileService,
     private favoriteStylesService: FavoriteStylesService,
-    private wikiArtService: WikiArtService
+    private wikiArtService: WikiArtService,
+    private communityStyleService: CommunityStylesService,
+
   ) {}
 
   /**
@@ -82,7 +85,10 @@ export class FavoritesPage implements OnInit {
       date: (new Date()).toDateString(),
       author: {
         name: 'You'
-      }
+      },
+      flag: 0,
+      isBanned: false
+
     };
     try {
       await this.showLoader();
@@ -92,6 +98,40 @@ export class FavoritesPage implements OnInit {
       this.hideLoader();
     }
   }
+
+  public getBanned(style: Style, index: number){
+
+    var checkStyle = style;
+
+  if(this.communityStyleService.flaggedStyle != null){
+    
+    if(checkStyle.image == this.communityStyleService.flaggedStyle.image){
+
+      console.log("is Targeted")
+
+      this.favoriteStylesService.flagStyle(checkStyle,index,this.communityStyleService.flaggedStyle);
+
+    } }else {
+
+      console.log("return false")
+
+    }
+
+  }
+
+  public checkBanned(style: Style){
+
+    if (style.isBanned == true){
+
+      style.isPublic = false;
+
+    }else {
+
+    }
+
+  }
+
+  
 
   /**
    * ...
@@ -191,4 +231,5 @@ export class FavoritesPage implements OnInit {
   private hideLoader(): void {
     this.loader.dismiss();
   }
+
 }

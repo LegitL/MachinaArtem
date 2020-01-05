@@ -13,4 +13,6 @@ export interface Style {
     bio?: string;
     avatar?: string;
   };
+  flag: number;
+  isBanned: boolean;
 }
