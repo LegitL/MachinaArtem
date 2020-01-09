@@ -31,7 +31,21 @@ export class ProfileService {
     }
   }
 
-  public updateUser(profile: UserProfile): Promise<void> {
+  public async updateUser(profile: UserProfile): Promise<void> {
+
+    const currentUser = await this.authService.getUser().pipe(first()).toPromise();
+
+    if (currentUser) {
+     
+    } else {
+      Promise.resolve(null);
+    }
+
+    if (profile.email != currentUser.email){
+
+      this.authService.updateEmail(profile.email);
+      
+    }
     const profileCopy = {...profile};
     delete profileCopy.id;
     return this.userCollection.doc(profile.id).update(profileCopy);

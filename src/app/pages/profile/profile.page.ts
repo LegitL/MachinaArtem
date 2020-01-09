@@ -22,6 +22,11 @@ export class ProfilePage implements OnInit {
   profileImage = '';
   userProfile: UserProfile;
   profileSubscription: Subscription;
+  userEmail: String;
+
+  cannotUpdate: any;
+  cannotEdit: any;
+  cannotLogout: any;
  
   constructor(
     private navCtrl: NavController,
@@ -43,6 +48,9 @@ export class ProfilePage implements OnInit {
     this.profileSubscription = userProfile$.subscribe(user => {
       this.profileForm.patchValue(user);
       this.userProfile = user;
+      this.userEmail = this.userProfile.email;
+
+      this.cannotLogout = false;
     });  
   }
  
@@ -68,6 +76,7 @@ export class ProfilePage implements OnInit {
   }
 
   public async save(newProfile: UserProfile) {
+
     try {
       this.userProfile = { ...this.userProfile, ...newProfile}
       await this.profileService.updateUser(this.userProfile);
@@ -81,11 +90,35 @@ export class ProfilePage implements OnInit {
       console.error('Could not save user profile:', error);
       // TODO: Show user error message.
     }
+
   }
 
-  public changePassword(): void {
+  public unlock(): void{
+
+    this.cannotLogout = false;
+
+  }
+
+  public changePassword(password): void {
     // TODO: Implement change password
   }
+
+  // public onEmailBlur(event: any): void {
+  //   const newEmail = event.target.value;
+
+  //   if (this.userProfile.email != newEmail) {
+
+  //     this.userProfile.email = newEmail;
+      
+  //     this.changeEmail(this.userEmail);
+  //   }
+  // }
+
+  public changeEmail(email): void {
+    // TODO: Implement change password
+    this.authService.updateEmail(email);
+  }
+
 
   public async logout(): Promise<void> {
     if (this.profileSubscription) {

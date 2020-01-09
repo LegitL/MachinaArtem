@@ -27,7 +27,7 @@
   
     <ion-list lines="full">
       <ion-item>
-        <ion-input type="email" inputmode="email" formControlName="email" placeholder="Email" readonly></ion-input>
+        <ion-input type="email" inputmode="email" formControlName="email" placeholder="Email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-input type="text" formControlName="name" placeholder="Name"></ion-input>
@@ -36,13 +36,13 @@
         <ion-textarea rows="4" formControlName="bio" placeholder="Enter your short bio here..."></ion-textarea>
       </ion-item>
     </ion-list>
-    <ion-button size="large" fill="solid" expand="full" type="submit" [disabled]="!profileForm.dirty && !profileForm.touched">
+    <ion-button size="large" fill="solid" expand="full" type="submit" [disabled]="!profileForm.dirty && !profileForm.touched" (click) = "unlock()">
       Save
     </ion-button>
     <!-- <ion-button size="large" fill="clear" expand="full" (click)="changePassword()">
       Change Password
     </ion-button> -->
-    <ion-button size="large" fill="clear" expand="full" (click)="logout()">
+    <ion-button size="large" fill="clear" expand="full" (click)="logout()" disabled = "{{cannotLogout}}">
       Log Out
     </ion-button>
 </form>

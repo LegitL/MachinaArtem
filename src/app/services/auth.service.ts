@@ -41,4 +41,14 @@ export class AuthService {
       console.error('Could not logout:', error);
     }
   }
+
+  public async updateEmail(newEmail: string ){
+
+    try {
+      await this.afAuth.auth.currentUser.updateEmail(newEmail);
+    } catch (error) {
+      console.error('Could not update:', error);
+    }
+
+  }
 }
