@@ -3,12 +3,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
+/**
+ * This page is responsible for the user to sign into the app
+ * 
+ * When the user enters the input for the basic information of the account, the page will call
+ * the methods in auth.service to get the permission to sign in
+ */
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.page.html',
   styleUrls: ['./signin.page.scss'],
 })
+
 export class SigninPage implements OnInit {
   signinForm: FormGroup;
   errorMessage: string = '';

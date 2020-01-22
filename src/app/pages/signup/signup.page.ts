@@ -4,12 +4,17 @@ import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { Match } from 'src/app/validators/match';
 
+/**
+ * This page is responsible for registering a new account for the user 
+ * The page will call the method in auth.service to sucessfully register an account 
+ */
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
+
 export class SignupPage implements OnInit {
   signupForm: FormGroup;
   errorMessage: string = '';

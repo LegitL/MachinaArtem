@@ -8,6 +8,11 @@ import { Style } from 'src/app/models/style';
 
 const IMAGE_PATTERN = 'images/';
 
+/**
+ * This page is responsible for displaying the detailed information of each style Object, such
+ * as the author, the date created, and the brief description of the style
+ */
+
 @Component({
   selector: 'app-painting',
   templateUrl: './painting.page.html',
@@ -18,6 +23,12 @@ export class PaintingPage implements OnInit {
   painting: any;
   isFavorite: boolean;
 
+  /**
+   * The services used in the styles are 
+   * @param activatedRoute 
+   * @param wikiArtService 
+   * @param favoriteStylesService 
+   */
   constructor(
     private activatedRoute: ActivatedRoute,
     private wikiArtService: WikiArtService,

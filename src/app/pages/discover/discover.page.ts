@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { NavigationExtras, Router } from '@angular/router';
 
+/**
+ * This page is repsonsible for the directive page for the user to enter the artist page or the styles page
+ * There will be a small icon on the top, which displays random styles from the wikiart.service
+ */
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.page.html',

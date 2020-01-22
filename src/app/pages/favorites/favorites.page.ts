@@ -7,6 +7,15 @@ import { WikiArtService } from '../../services/wiki-art.service';
 import * as uuidv4 from 'uuid/v4';
 import { ProfileService } from 'src/app/services/profile.service';
 
+/**
+ * This page is responsible for showing a whole list of styles the user has set as favorite styles
+ * The user can add, delete, edit information of all customized styles added to the list
+ * 
+ * The user can also set the privacy of the style, and decide whether the style is available for the mass 
+ * or only for private use
+ * 
+ * However, the styles from WikiArts are not editable
+ */
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.page.html',

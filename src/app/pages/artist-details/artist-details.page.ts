@@ -4,6 +4,11 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { WikipediaService } from '../../services/wikipedia.service';
 
+/**
+ * This page is responsible for diaplaying informations of the famous artist 
+ * The page will call the method in wikiart.service and wikipedia.service for all
+ * informations display on the page 
+ */
 @Component({
   selector: 'app-artist-details',
   templateUrl: './artist-details.page.html',

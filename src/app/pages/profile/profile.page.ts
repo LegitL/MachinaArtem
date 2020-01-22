@@ -11,6 +11,10 @@ import { identifierModuleUrl } from '@angular/compiler';
 
 const { Camera } = Plugins;
 
+/**
+ * This page is resposnsible for displaying the user's profile information
+ * such as email, username, profile image 
+ */
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',

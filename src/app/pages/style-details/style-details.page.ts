@@ -4,6 +4,12 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { WikiArtService } from '../../services/wiki-art.service';
 import { WikipediaService } from '../../services/wikipedia.service';
 
+/**
+ * This page is responsible for displaying the specific information of each art style in the history
+ * Such as the style's name, history, famous artists, and art works related to the style 
+ * The sources of the data comes from Wikipedia, which are stored in Wikipedia service
+ */
+
 @Component({
   selector: 'app-style-details',
   templateUrl: './style-details.page.html',
