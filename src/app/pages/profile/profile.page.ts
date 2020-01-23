@@ -13,7 +13,15 @@ const { Camera } = Plugins;
 
 /**
  * This page is resposnsible for displaying the user's profile information
- * such as email, username, profile image 
+ * such as email, username, bio, created date, and profile image. Any modification of the information will be saved 
+ * once the user click the save button, which will call the method updateUser() in profile.service
+ * and save all the writes into Cloud Firestore under User field
+ * 
+ * The user can add a profile picture by clicking the avatar icon, which will call the 
+ * picture capturing method captureProfileImage(). 
+ * 
+ * On this page, the user can also log out by clicking the log out button, which will call the method
+ * logoutUser() in auth.service to sign out.
  */
 @Component({
   selector: 'app-profile',

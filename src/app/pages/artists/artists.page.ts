@@ -4,7 +4,7 @@ import { WikiArtService } from '../../services/wiki-art.service';
 /**
  * This page is repsonsible for displaying all artists stored in the wiki-art service
  * The page will also offer directories to the information of specific paintings of each artists
- * The source is from wikiart.service
+ * The source is from wiki-art.service
  */
 
 @Component({

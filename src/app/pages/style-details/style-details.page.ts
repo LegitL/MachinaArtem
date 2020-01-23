@@ -7,7 +7,8 @@ import { WikipediaService } from '../../services/wikipedia.service';
 /**
  * This page is responsible for displaying the specific information of each art style in the history
  * Such as the style's name, history, famous artists, and art works related to the style 
- * The sources of the data comes from Wikipedia, which are stored in Wikipedia service
+ * The sources of the data comes from Wikipedia and WikiArt, which are stored in wikipedia.service (information)
+ * and wiki-art.service (image)
  */
 
 @Component({

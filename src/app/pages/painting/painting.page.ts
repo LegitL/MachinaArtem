@@ -10,7 +10,11 @@ const IMAGE_PATTERN = 'images/';
 
 /**
  * This page is responsible for displaying the detailed information of each style Object, such
- * as the author, the date created, and the brief description of the style
+ * as the author, the date created, and the brief description of the style.
+ * The source of the information comes from wiki-art.service.
+ * 
+ * On this page, the user can also save the style to the favorited styles page. The appoarch is by calling the
+ * addFavorite() method in avorite-style.service and add the style to favorite-style.json array
  */
 
 @Component({

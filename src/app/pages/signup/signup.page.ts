@@ -7,6 +7,18 @@ import { Match } from 'src/app/validators/match';
 /**
  * This page is responsible for registering a new account for the user 
  * The page will call the method in auth.service to sucessfully register an account 
+ * The user shall input the valid form of passowrd, which includes:
+ * 
+ * -Max length of 20, min length of 5
+ * 
+ * -There must be at least a upper case, and a lower case
+ * 
+ * -It must include a number
+ * 
+ * -The confirm password must be the same as the initial password
+ * 
+ * After registering the account, the form the user filled for registeration will sent to the Firebase.auth when the user
+ * click the submit button
  */
 
 @Component({

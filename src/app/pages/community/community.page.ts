@@ -3,8 +3,12 @@ import { Style } from 'src/app/models/style';
 import { CommunityStylesService } from 'src/app/services/community-styles.service';
 
 /**
- * This page is responsible for displaying all publically shared styles
- * The page will get all the soruces from community style service
+ * This page is responsible for displaying all publically shared styles. 
+ * All the styles avalaible on this page are user contributed, and WikiArt styles will not display on this page.
+ * 
+ * All of the styles stored Cloud Firestore, under the field of Styles. 
+ * To make sure the styles are still avalailble when the user goes offline, there will also be a copy for each style
+ * stored in the local storage.
  */
 
 @Component({

@@ -6,7 +6,7 @@ import { WikipediaService } from '../../services/wikipedia.service';
 
 /**
  * This page is responsible for diaplaying informations of the famous artist 
- * The page will call the method in wikiart.service and wikipedia.service for all
+ * The page will call the method in wiki-art.service and wikipedia.service for all
  * informations display on the page 
  */
 @Component({

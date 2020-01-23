@@ -5,9 +5,11 @@ import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * This page is responsible for all actions and variables on the password recovery page. On this page, once the user
- * enters the registered email, the page will call the authentication.service for the permission to send the password
+ * enters the registered email, the page will call the method of resetUserPassword() in auth.service for the permission to send the password
  * reset email.
  * 
+ * Once the user enter the new password, the page will automatically direct back to the waiting page and later the home page,
+ * and the password is renewed
  */
 
 @Component({

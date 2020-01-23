@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
  * 
  * When the user enters the input for the basic information of the account, the page will call
  * the methods in auth.service to get the permission to sign in
+ * 
+ * The page will also create the directories if the user forget the password or don't have an account
  */
 
 @Component({

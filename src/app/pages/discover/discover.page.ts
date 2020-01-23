@@ -4,7 +4,8 @@ import { NavigationExtras, Router } from '@angular/router';
 
 /**
  * This page is repsonsible for the directive page for the user to enter the artist page or the styles page
- * There will be a small icon on the top, which displays random styles from the wikiart.service
+ * There will be a small icon on the top, which displays random art pieces from the wiki-art.service. The user can also
+ * click on the image to learn more about the displaying image.
  */
 @Component({
   selector: 'app-discover',

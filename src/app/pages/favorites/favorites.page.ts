@@ -14,7 +14,7 @@ import { ProfileService } from 'src/app/services/profile.service';
  * The user can also set the privacy of the style, and decide whether the style is available for the mass 
  * or only for private use
  * 
- * However, the styles from WikiArts are not editable
+ * However, the styles from WikiArts are not editable, therefore the boolean of Wikiart is unchangable
  */
 @Component({
   selector: 'app-favorites',

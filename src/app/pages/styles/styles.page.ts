@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { WikiArtService, Groups } from '../../services/wiki-art.service';
 
+/**
+ * This page is responsible for displaying the information of a specific style
+ * The source of the information comes from wiki-art.service
+ */
 @Component({
   selector: 'app-styles',
   templateUrl: './styles.page.html',
