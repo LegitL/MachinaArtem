@@ -54,6 +54,7 @@ export class FavoriteStylesService {
 
   /**
    * The method is called to get all favorite styles from favorite-style.json
+   * All these styles will display on both the home page and the favorited page
    */
   public async getAllFavorites(): Promise<Style[]> {
     // Check if we are initialized and if not do lazy initialization here.
@@ -78,7 +79,7 @@ export class FavoriteStylesService {
   /**
    * The method is called to add all favorites the user added to favorite-style.json
    * @param favorites The json list that stored all the user's favorite styles, the list will be compared to the added styles.
-   * @returns
+   * The method will be finished if all the new favorited styles are added to the user's favorite styles
    */
   public async addAllFavorites(favorites: Style[]): Promise<void> {
     // If signed-in, store favorites to the firebase
@@ -136,7 +137,7 @@ export class FavoriteStylesService {
   /**
    * The method is called to add new styles to the json array of saved (Favorite) styles
    * The method will call addAllFavorite() to add the styles to the array of styles stored in favorite-style.json
-   * @param style the style Object that need to be added to the style.
+   * @param style The style Object that need to be added to the style.
    */
   public async addFavorite(style: Style): Promise<void> {
     style.slug = style.isWikiart ? this.getSlug(style.image) : style.slug;
@@ -178,7 +179,7 @@ export class FavoriteStylesService {
   }
 
   /**
-   * 
+   * A boolean that indicates whether the favorited style is defined
    * @param url The url of the image
    */
   public async hasFavorite(url: string): Promise<boolean> {
@@ -189,7 +190,7 @@ export class FavoriteStylesService {
 
   /**
    * The method is called for quick initialization
-   * @returns JSON.parse(data.value); The 
+   * @returns JSON.parse(data.value); The flag that indicates whether the favorite-style.json is reinitialized.
    */
   private async didInitialize(): Promise<boolean> {
     const data = await Storage.get({ key: initializedKey });
@@ -222,8 +223,8 @@ export class FavoriteStylesService {
   /**
    * The method is called when the user upload the image. The method will accept 
    * the user's input and add the input to favorite-style.json
-   * @param id 
-   * @param dataUrl 
+   * @param id The id of the uploaded style, which is given once the image is uploaded
+   * @param dataUrl The URL of the input image
    */
   private uploadImage(id: string, dataUrl: string): Promise<string> {
     const storageRef = this.storage.ref(`style-images/${id}`);

@@ -29,6 +29,7 @@ export class CommunityStylesService {
 
   /**
    * The method is called to get all styles from Cloud Firestore storage
+   * The styles are objects that include key informations of each inividual styles
    * @returns Observable<Style[]> The list of style stored in the local storage
    */
   public getAllStyles(): Observable<Style[]> {
